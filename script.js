@@ -384,6 +384,16 @@ const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)
     document.body.style.overflow = '';
   }
 
+  // ── Switch: close signup, open sign-in ──
+  window.closeSignupAndOpenSignin = function (e) {
+    if (e) e.preventDefault();
+    closeModal();
+    // Small delay so the close animation finishes before signin opens
+    setTimeout(function () {
+      if (window.openSigninModal) window.openSigninModal();
+    }, 280);
+  };
+
   if (closeBtn) closeBtn.addEventListener('click', closeModal);
 
   // Click the backdrop (outside the card) to close
@@ -441,6 +451,247 @@ const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)
           success.style.display = 'none';
         }, 400);
       }, 5000);
+    });
+  }
+})();
+
+
+// ===================================================
+// 10. HOW IT WORKS � Interactive fee panels
+// Panels are detached to <body> and positioned with
+// fixed coords so the grid row never expands.
+// ===================================================
+(function initHiwFeePanels() {
+  'use strict';
+
+  var steps    = document.querySelectorAll('.hiw-step--interactive');
+  var PANEL_W  = 320;
+  var GAP      = 14;
+  var EDGE_PAD = 10;
+
+  // -- 1. Move every panel to <body> ------------------
+  steps.forEach(function (step) {
+    var id    = step.dataset.feeId;
+    var panel = id ? document.getElementById(id) : null;
+    if (!panel) return;
+
+    document.body.appendChild(panel);
+
+    // Base fixed-panel styles (overrides any CSS positioning)
+    panel.style.cssText += [
+      'position:fixed',
+      'z-index:600',
+      'width:' + PANEL_W + 'px',
+      'max-height:80vh',
+      'overflow-y:auto',
+      'background:#fff',
+      'border:1px solid rgba(29,183,217,0.22)',
+      'border-radius:12px',
+      'box-shadow:0 10px 40px rgba(0,63,125,0.18)',
+      'margin:0',
+      'transition:opacity 0.2s ease, transform 0.2s ease'
+    ].join(';') + ';';
+  });
+
+  // -- 2. Compute & apply position --------------------
+  function place(step, panel) {
+    var rect = step.getBoundingClientRect();
+    var dir  = step.dataset.flyout; // 'left' | 'right' | undefined ? below
+
+    var top, left;
+
+    if (dir === 'left') {
+      left = rect.left - PANEL_W - GAP;
+      top  = rect.top;
+    } else if (dir === 'right') {
+      left = rect.right + GAP;
+      top  = rect.top;
+    } else {
+      // Centre below the step
+      left = rect.left + rect.width / 2 - PANEL_W / 2;
+      top  = rect.bottom + GAP;
+    }
+
+    // Clamp horizontally so it never runs off-screen
+    left = Math.max(EDGE_PAD, Math.min(left, window.innerWidth - PANEL_W - EDGE_PAD));
+
+    // Clamp vertically � if it would overflow bottom, flip above
+    var panelH = panel.scrollHeight || 400;
+    if (top + panelH > window.innerHeight - EDGE_PAD) {
+      if (dir === 'left' || dir === 'right') {
+        // Side panels: align to bottom of step instead
+        top = Math.max(EDGE_PAD, rect.bottom - panelH);
+      } else {
+        // Below panels: flip above
+        top = Math.max(EDGE_PAD, rect.top - panelH - GAP);
+      }
+    }
+    top = Math.max(EDGE_PAD, top);
+
+    panel.style.left = left + 'px';
+    panel.style.top  = top  + 'px';
+  }
+
+  // -- 3. Wire up each step ---------------------------
+  steps.forEach(function (step) {
+    var id    = step.dataset.feeId;
+    var panel = id ? document.getElementById(id) : null;
+    if (!panel) return;
+
+    function closeAll() {
+      steps.forEach(function (s) {
+        var oid = s.dataset.feeId;
+        var o   = oid ? document.getElementById(oid) : null;
+        if (o) { o.setAttribute('hidden', ''); s.setAttribute('aria-expanded', 'false'); }
+      });
+    }
+
+    function open() {
+      closeAll();
+      place(step, panel);
+      panel.removeAttribute('hidden');
+      step.setAttribute('aria-expanded', 'true');
+    }
+
+    function close() {
+      panel.setAttribute('hidden', '');
+      step.setAttribute('aria-expanded', 'false');
+    }
+
+    function toggle() {
+      panel.hasAttribute('hidden') ? open() : close();
+    }
+
+    step.addEventListener('click', toggle);
+    step.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+    });
+
+    // Reposition on scroll / resize while open
+    window.addEventListener('scroll', function () {
+      if (!panel.hasAttribute('hidden')) place(step, panel);
+    }, { passive: true });
+    window.addEventListener('resize', function () {
+      if (!panel.hasAttribute('hidden')) place(step, panel);
+    }, { passive: true });
+
+    // Tab switching (Steps 2 & 3)
+    panel.querySelectorAll('.hiw-fee-tab').forEach(function (tab) {
+      tab.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var tid = tab.dataset.tab;
+        panel.querySelectorAll('.hiw-fee-tab').forEach(function (t) {
+          t.classList.remove('hiw-fee-tab--active');
+          t.setAttribute('aria-selected', 'false');
+        });
+        tab.classList.add('hiw-fee-tab--active');
+        tab.setAttribute('aria-selected', 'true');
+        panel.querySelectorAll('.hiw-fee-tabpanel').forEach(function (tp) {
+          tp.id === tid ? tp.removeAttribute('hidden') : tp.setAttribute('hidden', '');
+        });
+      });
+    });
+  });
+
+  // -- 4. Close on outside click ----------------------
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest('.hiw-step--interactive') && !e.target.closest('.hiw-fee-panel')) {
+      steps.forEach(function (s) {
+        var oid = s.dataset.feeId;
+        var o   = oid ? document.getElementById(oid) : null;
+        if (o) { o.setAttribute('hidden', ''); s.setAttribute('aria-expanded', 'false'); }
+      });
+    }
+  });
+})();
+// ===================================================
+// 11. SIGN IN MODAL
+// ===================================================
+(function initSigninModal() {
+  var overlay    = document.getElementById('signin-modal');
+  var closeBtn   = document.getElementById('signin-modal-close');
+  var form       = document.getElementById('signin-form');
+  var switchLink = document.getElementById('switch-to-signup');
+
+  if (!overlay) return;
+
+  // Open
+  window.openSigninModal = function (e) {
+    if (e) e.preventDefault();
+    overlay.classList.add('modal-open');
+    document.body.style.overflow = 'hidden';
+    setTimeout(function () {
+      var first = overlay.querySelector('input');
+      if (first) first.focus();
+    }, 360);
+  };
+
+  // Close
+  function closeSignin() {
+    overlay.classList.remove('modal-open');
+    document.body.style.overflow = '';
+  }
+
+  if (closeBtn) closeBtn.addEventListener('click', closeSignin);
+
+  overlay.addEventListener('click', function (e) {
+    if (e.target === overlay) closeSignin();
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && overlay.classList.contains('modal-open')) {
+      closeSignin();
+    }
+  });
+
+  // Switch to sign-up
+  if (switchLink) {
+    switchLink.addEventListener('click', function (e) {
+      e.preventDefault();
+      closeSignin();
+      if (window.openSignupModal) window.openSignupModal();
+    });
+  }
+
+  // Sign-in form submit (demo handler)
+  if (form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (!form.checkValidity()) { form.reportValidity(); return; }
+
+      var header  = overlay.querySelector('.modal-header');
+      form.style.display = 'none';
+      if (header) header.style.display = 'none';
+
+      var success = overlay.querySelector('.modal-success');
+      if (!success) {
+        success = document.createElement('div');
+        success.className = 'modal-success';
+        success.innerHTML = [
+          '<div class="modal-success__icon">',
+            '<svg width="28" height="28" viewBox="0 0 28 28" fill="none">',
+              '<path d="M6 14 L11 19 L22 9" stroke="#58C14D" stroke-width="2.5"',
+              ' stroke-linecap="round" stroke-linejoin="round"/>',
+            '</svg>',
+          '</div>',
+          '<p class="modal-success__title">Welcome back!</p>',
+          '<p class="modal-success__msg">You\'re now signed in to FixLoop.</p>',
+          '<button class="btn btn-primary btn-lg" id="signin-success-close" style="margin-top:8px">Continue</button>',
+        ].join('');
+        overlay.querySelector('.modal-card').appendChild(success);
+        document.getElementById('signin-success-close').addEventListener('click', closeSignin);
+      }
+      success.style.display = 'flex';
+
+      setTimeout(function () {
+        closeSignin();
+        setTimeout(function () {
+          form.reset();
+          form.style.display = '';
+          if (header) header.style.display = '';
+          success.style.display = 'none';
+        }, 400);
+      }, 4000);
     });
   }
 })();
