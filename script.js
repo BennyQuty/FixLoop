@@ -219,7 +219,7 @@ const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)
 
   if (!rings.length) return;
 
-  const CIRCUMFERENCE = 326.7; // 2 * PI * 52
+  const CIRCUMFERENCE = 452.4; // 2 * PI * 72
 
   // Map data-target (0–326.7) to dashoffset (326.7 → 0)
   // data-target here represents the filled arc length in the ring
@@ -496,7 +496,7 @@ const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)
   // -- 2. Compute & apply position --------------------
   function place(step, panel) {
     var rect = step.getBoundingClientRect();
-    var dir  = step.dataset.flyout; // 'left' | 'right' | undefined ? below
+    var dir  = step.dataset.flyout; // 'left' | 'right' | undefined = below
 
     var top, left;
 
@@ -507,7 +507,7 @@ const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)
       left = rect.right + GAP;
       top  = rect.top;
     } else {
-      // Centre below the step
+      // Always place directly below the clicked step
       left = rect.left + rect.width / 2 - PANEL_W / 2;
       top  = rect.bottom + GAP;
     }
@@ -515,18 +515,12 @@ const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)
     // Clamp horizontally so it never runs off-screen
     left = Math.max(EDGE_PAD, Math.min(left, window.innerWidth - PANEL_W - EDGE_PAD));
 
-    // Clamp vertically � if it would overflow bottom, flip above
-    var panelH = panel.scrollHeight || 400;
-    if (top + panelH > window.innerHeight - EDGE_PAD) {
-      if (dir === 'left' || dir === 'right') {
-        // Side panels: align to bottom of step instead
-        top = Math.max(EDGE_PAD, rect.bottom - panelH);
-      } else {
-        // Below panels: flip above
-        top = Math.max(EDGE_PAD, rect.top - panelH - GAP);
-      }
-    }
+    // Always start below/beside the step - never flip above
     top = Math.max(EDGE_PAD, top);
+
+    // Constrain height to remaining viewport so it scrolls internally
+    var availH = window.innerHeight - top - EDGE_PAD;
+    panel.style.maxHeight = Math.max(200, availH) + 'px';
 
     panel.style.left = left + 'px';
     panel.style.top  = top  + 'px';
@@ -695,3 +689,45 @@ const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)
     });
   }
 })();
+
+
+// ===================================================
+// 12. PARTNER CARD BUTTONS — Open signup with pre-selected role
+// ===================================================
+window.openSignupModalWithRole = function (e, role) {
+  if (e) e.preventDefault();
+
+  // Open the signup modal via the existing function
+  if (window.openSignupModal) {
+    window.openSignupModal();
+  }
+
+  // Pre-select the role after the modal opens (wait for animation)
+  setTimeout(function () {
+    var roleSelect = document.getElementById('signup-role');
+    if (roleSelect && role) {
+      roleSelect.value = role;
+
+      // Fire a change event so any listeners pick it up
+      var evt = new Event('change', { bubbles: true });
+      roleSelect.dispatchEvent(evt);
+
+      // Update the modal badge/subtitle to reflect the role context
+      var roleLabelMap = {
+        business:   'Join as a Business Partner',
+        technician: 'Join as a Repair Technician',
+        recycler:   'Join as a Recycler / Refurbisher'
+      };
+
+      var badge = document.querySelector('#signup-modal .modal-badge');
+      var sub   = document.querySelector('#signup-modal .modal-sub');
+
+      if (badge && roleLabelMap[role]) {
+        badge.textContent = roleLabelMap[role];
+      }
+      if (sub && role !== 'consumer') {
+        sub.textContent = 'Complete your partner application below.';
+      }
+    }
+  }, 380); // matches the modal open focus delay
+};
