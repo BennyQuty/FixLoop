@@ -2254,3 +2254,563 @@ body.loading {
   .modal-card { padding: var(--space-4) var(--space-3); }
   .form-row { grid-template-columns: 1fr; }
 }
+
+
+/* ===== HOW IT WORKS — INTERACTIVE FEE PANELS ===== */
+
+.hiw-step--interactive {
+  cursor: pointer;
+  border-radius: var(--radius-md);
+  transition: background var(--transition-base);
+}
+
+.hiw-step--interactive:hover,
+.hiw-step--interactive:focus-visible {
+  background: rgba(29, 183, 217, 0.04);
+  outline: 2px solid rgba(29, 183, 217, 0.3);
+  outline-offset: 4px;
+}
+
+.hiw-step__tap {
+  display: inline-block;
+  font-size: 12px;
+  opacity: 0.5;
+  transition: transform var(--transition-base), opacity var(--transition-base);
+  vertical-align: middle;
+  margin-left: 4px;
+}
+
+.hiw-step--interactive[aria-expanded="true"] .hiw-step__tap {
+  transform: rotate(180deg);
+  opacity: 1;
+}
+
+/* Fee panel — default (Steps 2 & 3 drop down inline) */
+.hiw-fee-panel {
+  width: calc(100% + 40px);
+  max-width: 360px;
+  margin: var(--space-2) -20px 0;
+  background: #fff;
+  border: 1px solid rgba(29, 183, 217, 0.2);
+  border-radius: var(--radius-md);
+  box-shadow: 0 8px 32px rgba(0, 63, 125, 0.1);
+  overflow: hidden;
+  animation: feePanelIn 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.hiw-fee-panel[hidden] { display: none; }
+
+@keyframes feePanelIn {
+  from { opacity: 0; transform: translateY(-8px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ── Side-flyout panels for Step 1 (left) and Step 4 (right) ── */
+
+/* The parent step needs relative positioning as an anchor */
+.hiw-step--flyout-left,
+.hiw-step--flyout-right {
+  position: relative;
+}
+
+/* Shared flyout base */
+.hiw-fee-panel--flyout {
+  position: absolute;
+  top: 0;
+  width: 300px;
+  margin: 0;            /* override the inline margin */
+  z-index: 100;
+  max-height: 80vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(29,183,217,0.3) transparent;
+}
+
+/* Step 1 → panel slides out to the LEFT */
+.hiw-fee-panel--flyout-left {
+  right: calc(100% + 12px);
+  left: auto;
+  animation: flyoutLeft 0.28s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes flyoutLeft {
+  from { opacity: 0; transform: translateX(12px) scale(0.96); }
+  to   { opacity: 1; transform: translateX(0)   scale(1); }
+}
+
+/* Step 4 → panel slides out to the RIGHT */
+.hiw-fee-panel--flyout-right {
+  left: calc(100% + 12px);
+  right: auto;
+  animation: flyoutRight 0.28s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes flyoutRight {
+  from { opacity: 0; transform: translateX(-12px) scale(0.96); }
+  to   { opacity: 1; transform: translateX(0)    scale(1); }
+}
+
+.hiw-fee-panel__inner {
+  padding: var(--space-3);
+}
+
+/* Fee badge */
+.hiw-fee-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: rgba(0, 134, 201, 0.08);
+  border: 1px solid rgba(0, 134, 201, 0.2);
+  border-radius: var(--radius-pill);
+  margin-bottom: var(--space-2);
+}
+
+.hiw-fee-badge--green {
+  background: rgba(88, 193, 77, 0.08);
+  border-color: rgba(88, 193, 77, 0.2);
+}
+
+.hiw-fee-badge--lime {
+  background: rgba(140, 217, 72, 0.08);
+  border-color: rgba(140, 217, 72, 0.25);
+}
+
+.hiw-fee-badge__pct {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 800;
+  background: var(--gradient-blue);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+}
+
+.hiw-fee-badge--green .hiw-fee-badge__pct {
+  background: var(--gradient-green);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.hiw-fee-badge--lime .hiw-fee-badge__pct {
+  background: linear-gradient(135deg, #58C14D, #8CD948);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.hiw-fee-badge__label {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.hiw-fee-panel__desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  margin-bottom: var(--space-2);
+}
+
+.hiw-fee-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-left: 0;
+}
+
+.hiw-fee-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.hiw-fee-list li::before {
+  content: '✓';
+  color: var(--eco-green);
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* Fee tabs (Repair / Recycling) */
+.hiw-fee-tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: var(--space-2);
+  background: var(--surface);
+  border-radius: var(--radius-pill);
+  padding: 4px;
+}
+
+.hiw-fee-tab {
+  flex: 1;
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: var(--radius-pill);
+  color: var(--text-secondary);
+  transition: var(--transition-fast);
+  cursor: pointer;
+}
+
+.hiw-fee-tab--active,
+.hiw-fee-tab[aria-selected="true"] {
+  background: var(--white);
+  color: var(--electric-blue);
+  box-shadow: 0 1px 6px rgba(0, 63, 125, 0.1);
+}
+
+.hiw-fee-tabpanel[hidden] { display: none; }
+
+/* Recycling fee table */
+.hiw-fee-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  margin-top: var(--space-1);
+}
+
+.hiw-fee-table th {
+  text-align: left;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.hiw-fee-table td {
+  padding: 7px 8px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+  color: var(--text-secondary);
+  vertical-align: top;
+}
+
+.hiw-fee-table td:first-child {
+  font-weight: 500;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+.hiw-fee-table tr:last-child td { border-bottom: none; }
+
+/* ===== FOOTER — APP STORE DOWNLOAD ===== */
+
+.footer-app {
+  padding: var(--space-4) 0;
+  border-top: 1px solid rgba(29, 183, 217, 0.08);
+  border-bottom: 1px solid rgba(29, 183, 217, 0.08);
+  margin-bottom: var(--space-3);
+}
+
+.footer-app__label {
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.35);
+  margin-bottom: var(--space-2);
+}
+
+.footer-app__links {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.app-store-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: var(--radius-md);
+  color: var(--white);
+  text-decoration: none;
+  transition: var(--transition-base);
+  min-width: 160px;
+}
+
+.app-store-btn:hover {
+  background: rgba(29, 183, 217, 0.12);
+  border-color: rgba(29, 183, 217, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.2);
+}
+
+.app-store-btn__icon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.app-store-btn--apple .app-store-btn__icon {
+  color: var(--white);
+}
+
+.app-store-btn__text {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.app-store-btn__sub {
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.65;
+}
+
+.app-store-btn__name {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+/* ===== NAV — SIGN IN BUTTON ===== */
+
+/* Extra spacing between sign in and get started */
+.nav-actions .btn-ghost-light {
+  margin-right: 2px;
+}
+
+/* ===== SIGN IN MODAL ===== */
+/* Reuses the same .modal-overlay / .modal-card styles from the existing signup modal */
+
+/* Mobile responsive adjustments */
+@media (max-width: 767px) {
+  .hiw-fee-panel:not(.hiw-fee-panel--flyout) {
+    width: 100%;
+    margin: var(--space-2) 0 0;
+  }
+
+  /* On mobile, flyout panels drop down instead of going sideways */
+  .hiw-fee-panel--flyout {
+    position: static;
+    width: 100%;
+    max-height: none;
+    margin: var(--space-2) 0 0;
+    animation: feePanelIn 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  }
+}
+
+  .footer-app__links {
+    flex-direction: column;
+  }
+
+  .app-store-btn {
+    width: 100%;
+    max-width: 260px;
+  }
+}
+
+
+/* ===== FOOTER — DUAL CONTACT EMAILS ===== */
+
+.footer-contact-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: var(--space-3);
+}
+
+.footer-contact-item:last-child {
+  margin-bottom: 0;
+}
+
+.footer-contact-label {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.footer-email--support {
+  color: var(--lime);
+}
+
+.footer-email--support:hover {
+  color: var(--eco-green);
+}
+
+
+/* ===== HOW IT WORKS — REPORT ISSUE INFO PANEL ===== */
+
+/* Override max-width for the richer info panel — it needs more room */
+.hiw-info-panel {
+  max-width: 400px;
+}
+
+/* Individual info block */
+.hiw-info-block {
+  margin-bottom: 0;
+}
+
+.hiw-info-block__header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.hiw-info-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+}
+
+.hiw-info-block--ai    .hiw-info-icon { background: rgba(0, 134, 201, 0.08); }
+.hiw-info-block--success .hiw-info-icon { background: rgba(88, 193, 77, 0.08); }
+.hiw-info-block--loop  .hiw-info-icon { background: rgba(140, 217, 72, 0.08); }
+.hiw-info-block--market .hiw-info-icon { background: rgba(140, 217, 72, 0.1); }
+
+.hiw-info-block__title {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* Thin divider between blocks */
+.hiw-info-divider {
+  height: 1px;
+  background: var(--border-subtle);
+  margin: var(--space-2) 0;
+}
+
+
+/* ===== PARTNER CARDS — IMAGE + HOVER EFFECT ===== */
+
+.partner-card {
+  padding: 0;                   /* image bleeds to edges */
+  overflow: hidden;
+  cursor: pointer;
+}
+
+/* Image wrapper — fixed height, clips the image */
+.partner-card__img-wrap {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+/* The actual image */
+.partner-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1),
+              filter 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+  filter: brightness(0.88) saturate(1.05);
+}
+
+/* Gradient overlay — hidden until hover */
+.partner-card__img-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    160deg,
+    rgba(0, 63, 125, 0.78) 0%,
+    rgba(29, 183, 217, 0.72) 60%,
+    rgba(88, 193, 77, 0.65) 100%
+  );
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+
+.partner-card__overlay-text {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: -0.01em;
+  text-align: center;
+  padding: 0 var(--space-2);
+  text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+}
+
+.partner-card__overlay-btn {
+  font-size: 13px;
+  padding: 8px 20px;
+  transform: translateY(4px);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.3s ease;
+}
+
+/* ── Hover state ── */
+.partner-card:hover .partner-card__img {
+  transform: scale(1.07);
+  filter: brightness(0.75) saturate(1.2);
+}
+
+.partner-card:hover .partner-card__img-overlay {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.partner-card:hover .partner-card__overlay-btn {
+  transform: translateY(0);
+}
+
+/* ── Glow border on hover ── */
+.partner-card:hover {
+  box-shadow: 0 12px 40px rgba(29, 183, 217, 0.22),
+              0 0 0 2px rgba(29, 183, 217, 0.25);
+}
+
+/* Restore inner padding for the content below the image */
+.partner-card .citation-card__header,
+.partner-card .citation-quote,
+.partner-card .citation-footer {
+  padding-left: var(--space-3);
+  padding-right: var(--space-3);
+}
+
+.partner-card .citation-card__header {
+  padding-top: var(--space-2);
+}
+
+.partner-card .citation-footer {
+  padding-bottom: var(--space-3);
+}
+
+/* Mobile — shorter image */
+@media (max-width: 767px) {
+  .partner-card__img-wrap {
+    height: 160px;
+  }
+}

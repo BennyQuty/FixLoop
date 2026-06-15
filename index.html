@@ -64,11 +64,12 @@
         <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
         <li><a href="#features" class="nav-link">Features</a></li>
         <li><a href="#impact" class="nav-link">Impact</a></li>
-        <li><a href="#citations" class="nav-link">Research</a></li>
+        <li><a href="#partners" class="nav-link">Partners</a></li>
       </ul>
 
       <!-- CTA + Hamburger -->
       <div class="nav-actions">
+        <a href="#" class="btn btn-ghost-light btn-sm hide-mobile" onclick="openSigninModal(event)">Sign In</a>
         <a href="#cta" class="btn btn-primary btn-sm" onclick="openSignupModal(event)">Get Started</a>
         <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-links">
           <span class="hamburger-line"></span>
@@ -298,7 +299,7 @@
         <h2 class="section-heading section-heading--light reveal-up reveal-delay-1" id="solution-heading">
           Circular<br/><span class="gradient-text-green">Future</span>
         </h2>
-        <p class="section-sub section-sub--light reveal-up reveal-delay-2">
+      <p class="section-sub section-sub--light reveal-up reveal-delay-2">
           FixLoop connects every stakeholder in the appliance ecosystem — from first repair to final responsible disposal.
         </p>
 
@@ -426,8 +427,10 @@
             </svg>
           </div>
 
-          <!-- Step 1 -->
-          <div class="hiw-step reveal-up" role="listitem" style="--card-delay: 0.1s">
+          <!-- Step 1 — Report Issue (clickable) -->
+          <div class="hiw-step reveal-up hiw-step--interactive" role="listitem" style="--card-delay: 0.1s"
+               data-fee-id="fee-report-issue" aria-expanded="false" tabindex="0" data-flyout="left"
+               aria-label="Report Issue — click to learn about AI-augmented diagnostics">
             <div class="hiw-step__node" aria-hidden="true">
               <span class="hiw-step__num">1</span>
               <svg class="hiw-step__ring" viewBox="0 0 80 80" fill="none">
@@ -440,12 +443,86 @@
                 </linearGradient>
               </defs>
             </div>
-            <h3 class="hiw-step__title">Report Issue</h3>
+            <h3 class="hiw-step__title">Report Issue <span class="hiw-step__tap" aria-hidden="true">↓</span></h3>
             <p class="hiw-step__desc">Describe your appliance problem via our guided diagnostic form — takes under 2 minutes.</p>
+
+            <!-- Info panel -->
+            <div class="hiw-fee-panel hiw-info-panel hiw-fee-panel--flyout hiw-fee-panel--flyout-left" id="fee-report-issue" role="region" aria-label="Report Issue details" hidden>
+              <div class="hiw-fee-panel__inner">
+
+                <!-- AI Diagnostics -->
+                <div class="hiw-info-block hiw-info-block--ai">
+                  <div class="hiw-info-block__header">
+                    <span class="hiw-info-icon" aria-hidden="true">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                        <path d="M12 2a4 4 0 0 1 4 4v1h1a3 3 0 0 1 3 3v2a3 3 0 0 1-3 3h-1v1a4 4 0 0 1-8 0v-1H7a3 3 0 0 1-3-3v-2a3 3 0 0 1 3-3h1V6a4 4 0 0 1 4-4z" stroke="url(#aiGrad)" stroke-width="1.5" fill="none"/>
+                        <circle cx="9" cy="10" r="1.2" fill="#1DB7D9"/>
+                        <circle cx="15" cy="10" r="1.2" fill="#1DB7D9"/>
+                        <path d="M9 14.5 Q12 17 15 14.5" stroke="#8CD948" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+                        <defs>
+                          <linearGradient id="aiGrad" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%" stop-color="#0086C9"/>
+                            <stop offset="100%" stop-color="#1DB7D9"/>
+                          </linearGradient>
+                        </defs>
+                      </svg>
+                    </span>
+                    <strong class="hiw-info-block__title">AI-Augmented Diagnostics</strong>
+                  </div>
+                  <p class="hiw-fee-panel__desc">Our guided form is powered by AI that analyses your appliance model, symptoms, and usage patterns in real time — giving technicians a complete diagnostic brief <em>before they arrive</em>.</p>
+                  <ul class="hiw-fee-list">
+                    <li>Smart fault detection from symptom descriptions</li>
+                    <li>Parts &amp; tools pre-identified for the job</li>
+                    <li>Drives a higher first-visit repair success rate</li>
+                  </ul>
+                </div>
+
+                <div class="hiw-info-divider" aria-hidden="true"></div>
+
+                <!-- First-Visit Success -->
+                <div class="hiw-info-block hiw-info-block--success">
+                  <div class="hiw-info-block__header">
+                    <span class="hiw-info-icon" aria-hidden="true">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                        <circle cx="12" cy="12" r="10" stroke="#58C14D" stroke-width="1.5" fill="none"/>
+                        <path d="M7 12 L10.5 15.5 L17 9" stroke="#58C14D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </span>
+                    <strong class="hiw-info-block__title">First-Visit Repair Success</strong>
+                  </div>
+                  <p class="hiw-fee-panel__desc">Because the AI prepares a full brief ahead of the visit, technicians arrive with the right parts and knowledge — reducing repeat visits, saving time, and cutting costs.</p>
+                </div>
+
+                <div class="hiw-info-divider" aria-hidden="true"></div>
+
+                <!-- Close the Loop -->
+                <div class="hiw-info-block hiw-info-block--loop">
+                  <div class="hiw-info-block__header">
+                    <span class="hiw-info-icon" aria-hidden="true">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                        <path d="M12 4 A8 8 0 1 1 4 12" stroke="url(#loopGrad)" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+                        <polyline points="4,8 4,12 8,12" stroke="#8CD948" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                        <defs>
+                          <linearGradient id="loopGrad" x1="4" y1="4" x2="20" y2="20" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%" stop-color="#1DB7D9"/>
+                            <stop offset="100%" stop-color="#8CD948"/>
+                          </linearGradient>
+                        </defs>
+                      </svg>
+                    </span>
+                    <strong class="hiw-info-block__title">Close the Loop</strong>
+                  </div>
+                  <p class="hiw-fee-panel__desc">After a successful repair, FixLoop automatically suggests the next circular step — whether that's refurbishment, responsible recycling, or putting the appliance back into use.</p>
+                </div>
+
+              </div>
+            </div>
           </div>
 
-          <!-- Step 2 -->
-          <div class="hiw-step reveal-up" role="listitem" style="--card-delay: 0.2s">
+          <!-- Step 2 — Match Technician (clickable) -->
+          <div class="hiw-step reveal-up hiw-step--interactive" role="listitem" style="--card-delay: 0.2s"
+               data-fee-id="fee-match" aria-expanded="false" tabindex="0"
+               aria-label="Match Technician — click to see service fee details">
             <div class="hiw-step__node" aria-hidden="true">
               <span class="hiw-step__num">2</span>
               <svg class="hiw-step__ring" viewBox="0 0 80 80" fill="none">
@@ -458,12 +535,29 @@
                 </defs>
               </svg>
             </div>
-            <h3 class="hiw-step__title">Match Technician</h3>
+            <h3 class="hiw-step__title">Match Technician <span class="hiw-step__tap" aria-hidden="true">↓</span></h3>
             <p class="hiw-step__desc">Our platform surfaces verified technicians matched to your appliance type, location, and urgency.</p>
+            <!-- Fee panel -->
+            <div class="hiw-fee-panel" id="fee-match" role="region" aria-label="Matching fee details" hidden>
+              <div class="hiw-fee-panel__inner">
+                <div class="hiw-fee-badge">
+                  <span class="hiw-fee-badge__pct">5%</span>
+                  <span class="hiw-fee-badge__label">Service Fee</span>
+                </div>
+                <p class="hiw-fee-panel__desc">FixLoop charges a <strong>5% platform fee</strong> on successful repairs only — no upfront cost, no hidden charges. You pay only when your appliance is fixed.</p>
+                <ul class="hiw-fee-list">
+                  <li>Charged on successful repair completion</li>
+                  <li>Covers matching, escrow &amp; support</li>
+                  <li>No fee if repair is unsuccessful</li>
+                </ul>
+              </div>
+            </div>
           </div>
 
-          <!-- Step 3 -->
-          <div class="hiw-step reveal-up" role="listitem" style="--card-delay: 0.3s">
+          <!-- Step 3 — Repair or Refurbish (clickable) -->
+          <div class="hiw-step reveal-up hiw-step--interactive" role="listitem" style="--card-delay: 0.3s"
+               data-fee-id="fee-repair" aria-expanded="false" tabindex="0"
+               aria-label="Repair or Refurbish — click to see commission and recycling fee details">
             <div class="hiw-step__node" aria-hidden="true">
               <span class="hiw-step__num">3</span>
               <svg class="hiw-step__ring" viewBox="0 0 80 80" fill="none">
@@ -476,12 +570,57 @@
                 </defs>
               </svg>
             </div>
-            <h3 class="hiw-step__title">Repair or Refurbish</h3>
+            <h3 class="hiw-step__title">Repair or Refurbish <span class="hiw-step__tap" aria-hidden="true">↓</span></h3>
             <p class="hiw-step__desc">Get your appliance repaired on-site, or enter the refurbishment pipeline for a full upgrade and certification.</p>
+            <!-- Fee panel -->
+            <div class="hiw-fee-panel" id="fee-repair" role="region" aria-label="Repair and recycling fee details" hidden>
+              <div class="hiw-fee-panel__inner">
+                <!-- Repair tab -->
+                <div class="hiw-fee-tabs" role="tablist" aria-label="Fee type">
+                  <button class="hiw-fee-tab hiw-fee-tab--active" role="tab" aria-selected="true"
+                          data-tab="repair-tab" id="tab-repair">Repair</button>
+                  <button class="hiw-fee-tab" role="tab" aria-selected="false"
+                          data-tab="recycle-tab" id="tab-recycle">Recycling</button>
+                </div>
+
+                <div class="hiw-fee-tabpanel" id="repair-tab" role="tabpanel" aria-labelledby="tab-repair">
+                  <div class="hiw-fee-badge hiw-fee-badge--green">
+                    <span class="hiw-fee-badge__pct">10%</span>
+                    <span class="hiw-fee-badge__label">Technician Commission</span>
+                  </div>
+                  <p class="hiw-fee-panel__desc">Technicians earn their service rate in full. FixLoop takes a <strong>10% commission</strong> from the technician's side on every completed job — never from the customer.</p>
+                  <ul class="hiw-fee-list">
+                    <li>Applied to technician payout only</li>
+                    <li>Covers insurance, dispute &amp; platform ops</li>
+                    <li>Paid automatically after job confirmation</li>
+                  </ul>
+                </div>
+
+                <div class="hiw-fee-tabpanel" id="recycle-tab" role="tabpanel" aria-labelledby="tab-recycle" hidden>
+                  <div class="hiw-fee-badge hiw-fee-badge--lime">
+                    <span class="hiw-fee-badge__pct">50%</span>
+                    <span class="hiw-fee-badge__label">Avg. Appliance Fee</span>
+                  </div>
+                  <p class="hiw-fee-panel__desc">Recycling fees are calculated based on appliance weight and type.</p>
+                  <table class="hiw-fee-table" aria-label="Recycling fee schedule">
+                    <thead>
+                      <tr><th>Category</th><th>Fee Basis</th></tr>
+                    </thead>
+                    <tbody>
+                      <tr><td>Standard appliances</td><td>Fixed 50% of average handling cost</td></tr>
+                      <tr><td>Heavier appliances</td><td>Variable — based on weight (kg)</td></tr>
+                      <tr><td>Bulk / commercial</td><td>Custom quote via enterprise portal</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
           </div>
 
-          <!-- Step 4 -->
-          <div class="hiw-step reveal-up" role="listitem" style="--card-delay: 0.4s">
+          <!-- Step 4 — Close the Loop (clickable) -->
+          <div class="hiw-step reveal-up hiw-step--interactive" role="listitem" style="--card-delay: 0.4s"
+               data-fee-id="fee-close-loop" aria-expanded="false" tabindex="0" data-flyout="right"
+               aria-label="Close the Loop — click to see your options including selling as-is">
             <div class="hiw-step__node hiw-step__node--last" aria-hidden="true">
               <span class="hiw-step__num">4</span>
               <svg class="hiw-step__ring" viewBox="0 0 80 80" fill="none">
@@ -494,8 +633,67 @@
                 </defs>
               </svg>
             </div>
-            <h3 class="hiw-step__title">Close the Loop</h3>
+            <h3 class="hiw-step__title">Close the Loop <span class="hiw-step__tap" aria-hidden="true">↓</span></h3>
             <p class="hiw-step__desc">Reuse, resell on the marketplace, or responsibly recycle. The loop continues — waste ends here.</p>
+
+            <!-- Close the Loop info panel -->
+            <div class="hiw-fee-panel hiw-info-panel hiw-fee-panel--flyout hiw-fee-panel--flyout-right" id="fee-close-loop" role="region" aria-label="Close the Loop options" hidden>
+              <div class="hiw-fee-panel__inner">
+
+                <!-- Sell as-is highlight -->
+                <div class="hiw-info-block hiw-info-block--market">
+                  <div class="hiw-info-block__header">
+                    <span class="hiw-info-icon" aria-hidden="true">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                        <path d="M3 9 L12 3 L21 9 V20 A1 1 0 0 1 20 21 H4 A1 1 0 0 1 3 20 Z"
+                              stroke="#8CD948" stroke-width="1.5" fill="none" stroke-linejoin="round"/>
+                        <path d="M9 21 V12 H15 V21"
+                              stroke="#8CD948" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                      </svg>
+                    </span>
+                    <strong class="hiw-info-block__title">Sell It As-Is — No Repair Needed</strong>
+                  </div>
+                  <p class="hiw-fee-panel__desc">
+                    Not every appliance needs to be repaired first. You can list it <strong>directly on the FixLoop built-in marketplace in its current condition</strong> — buyers know exactly what they're getting thanks to your honest condition report.
+                  </p>
+                  <ul class="hiw-fee-list">
+                    <li>List broken, faulty, or unused appliances instantly</li>
+                    <li>Transparent condition grading visible to all buyers</li>
+                    <li>Reach verified buyers actively looking for project appliances</li>
+                    <li>Secure in-platform payment &amp; handoff</li>
+                  </ul>
+                </div>
+
+                <div class="hiw-info-divider" aria-hidden="true"></div>
+
+                <!-- Other close-loop options -->
+                <div class="hiw-info-block hiw-info-block--loop">
+                  <div class="hiw-info-block__header">
+                    <span class="hiw-info-icon" aria-hidden="true">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                        <path d="M12 4 A8 8 0 1 1 4 12" stroke="url(#loopGrad2)" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+                        <polyline points="4,8 4,12 8,12" stroke="#8CD948" stroke-width="1.5"
+                                  stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                        <defs>
+                          <linearGradient id="loopGrad2" x1="4" y1="4" x2="20" y2="20" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%" stop-color="#1DB7D9"/>
+                            <stop offset="100%" stop-color="#8CD948"/>
+                          </linearGradient>
+                        </defs>
+                      </svg>
+                    </span>
+                    <strong class="hiw-info-block__title">Other Ways to Close the Loop</strong>
+                  </div>
+                  <ul class="hiw-fee-list">
+                    <li>Refurbish &amp; resell through the certified pipeline</li>
+                    <li>Donate to a community repair hub</li>
+                    <li>Responsibly recycle via certified e-waste partners</li>
+                    <li>Strip for reusable parts on the Parts Marketplace</li>
+                  </ul>
+                </div>
+
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -860,146 +1058,182 @@
       </div>
     </section>
 
-    <!-- ========== CITATIONS ========== -->
-    <section class="citations section-pad section-surface" id="citations" aria-labelledby="citations-heading">
+    <!-- ========== PARTNERS ========== -->
+    <section class="citations section-pad section-surface" id="partners" aria-labelledby="partners-heading">
       <div class="container">
-        <div class="section-label reveal-up">Research Foundation</div>
-        <h2 class="section-heading reveal-up reveal-delay-1" id="citations-heading">
-          Grounded in<br/><span class="gradient-text">Verified Science</span>
+        <div class="section-label reveal-up">Who We Work With</div>
+        <h2 class="section-heading reveal-up reveal-delay-1" id="partners-heading">
+          Built for Every<br/><span class="gradient-text">Partner in the Loop</span>
         </h2>
         <p class="section-sub reveal-up reveal-delay-2">
-          FixLoop's mission is backed by leading global research on e-waste, circular economy, and sustainable technology.
+          FixLoop connects businesses, certified technicians, and responsible recyclers into one unified circular economy ecosystem.
         </p>
 
         <div class="citations-grid">
 
-          <!-- Citation 1: UNEP Global E-waste Monitor -->
-          <article class="citation-card reveal-up" style="--card-delay: 0.1s">
+          <!-- Partner Type 1: Business -->
+          <article class="citation-card partner-card reveal-up" style="--card-delay: 0.1s">
+            <div class="partner-card__img-wrap">
+              <img
+                src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=600&q=80&auto=format&fit=crop"
+                alt="Business team discussing sustainability strategy"
+                class="partner-card__img"
+                loading="lazy"
+              />
+              <div class="partner-card__img-overlay">
+                <p class="partner-card__overlay-text">Partner as a Business</p>
+                <a href="mailto:hello@fixloop.io" class="btn btn-glow btn-sm partner-card__overlay-btn">Get in Touch</a>
+              </div>
+            </div>
             <div class="citation-card__header">
-              <div class="citation-org-badge citation-org-badge--un">UN</div>
-              <span class="citation-tag">E-Waste Scale</span>
+              <div class="citation-org-badge citation-org-badge--un">BIZ</div>
+              <span class="citation-tag">Business Partner</span>
             </div>
             <blockquote class="citation-quote">
-              "The world generated 62 million tonnes of e-waste in 2022, and only 22.3% was formally collected and recycled."
+              Join FixLoop as a corporate partner and give your customers a seamless repair-first experience — reducing replacement costs and meeting sustainability targets.
             </blockquote>
             <footer class="citation-footer">
               <div class="citation-source">
-                <span class="citation-org">UNEP &amp; ITU</span>
-                <cite class="citation-ref">Global E-waste Monitor 2024</cite>
+                <span class="citation-org">For Businesses &amp; Organisations</span>
+                <cite class="citation-ref">Fleet management, ESG reporting &amp; bulk repair programmes</cite>
               </div>
-              <a href="https://www.unep.org" target="_blank" rel="noopener" class="citation-link" aria-label="UNEP source">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><polyline points="15,3 21,3 21,9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="10" y1="14" x2="21" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              <a href="mailto:hello@fixloop.io" class="citation-link" aria-label="Partner with us as a business">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" stroke-width="2" fill="none"/><polyline points="22,6 12,13 2,6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
               </a>
             </footer>
           </article>
 
-          <!-- Citation 2: Ellen MacArthur Foundation -->
-          <article class="citation-card reveal-up" style="--card-delay: 0.15s">
+          <!-- Partner Type 2: Technician -->
+          <article class="citation-card partner-card reveal-up" style="--card-delay: 0.15s">
+            <div class="partner-card__img-wrap">
+              <img
+                src="https://images.unsplash.com/photo-1621905251918-48416bd8575a?w=600&q=80&auto=format&fit=crop"
+                alt="Technician repairing a household appliance"
+                class="partner-card__img"
+                loading="lazy"
+              />
+              <div class="partner-card__img-overlay">
+                <p class="partner-card__overlay-text">Join as a Technician</p>
+                <a href="mailto:hello@fixloop.io" class="btn btn-glow btn-sm partner-card__overlay-btn">Apply Now</a>
+              </div>
+            </div>
             <div class="citation-card__header">
-              <div class="citation-org-badge citation-org-badge--emf">EMF</div>
-              <span class="citation-tag">Circular Economy</span>
+              <div class="citation-org-badge citation-org-badge--emf">TECH</div>
+              <span class="citation-tag">Repair Technician</span>
             </div>
             <blockquote class="citation-quote">
-              "A circular economy keeps products and materials in use for as long as possible through repair, reuse, refurbishment, and recycling."
+              Grow your repair business on FixLoop. Get matched with verified customers, receive AI-prepared diagnostic briefs, and get paid securely — all in one platform.
             </blockquote>
             <footer class="citation-footer">
               <div class="citation-source">
-                <span class="citation-org">Ellen MacArthur Foundation</span>
-                <cite class="citation-ref">Towards the Circular Economy</cite>
+                <span class="citation-org">For Independent &amp; Certified Technicians</span>
+                <cite class="citation-ref">Smart job matching, secure payouts &amp; reputation building</cite>
               </div>
-              <a href="https://ellenmacarthurfoundation.org" target="_blank" rel="noopener" class="citation-link" aria-label="Ellen MacArthur Foundation source">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><polyline points="15,3 21,3 21,9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="10" y1="14" x2="21" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              <a href="mailto:hello@fixloop.io" class="citation-link" aria-label="Join as a technician">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" stroke-width="2" fill="none"/><polyline points="22,6 12,13 2,6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
               </a>
             </footer>
           </article>
 
-          <!-- Citation 3: Right to Repair -->
-          <article class="citation-card reveal-up" style="--card-delay: 0.2s">
+          <!-- Partner Type 3: Recycler -->
+          <article class="citation-card partner-card reveal-up" style="--card-delay: 0.2s">
+            <div class="partner-card__img-wrap">
+              <img
+                src="https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=600&q=80&auto=format&fit=crop"
+                alt="Recycler sorting electronic waste responsibly"
+                class="partner-card__img"
+                loading="lazy"
+              />
+              <div class="partner-card__img-overlay">
+                <p class="partner-card__overlay-text">Partner as a Recycler</p>
+                <a href="mailto:hello@fixloop.io" class="btn btn-glow btn-sm partner-card__overlay-btn">Register Today</a>
+              </div>
+            </div>
             <div class="citation-card__header">
-              <div class="citation-org-badge citation-org-badge--eeb">EEB</div>
-              <span class="citation-tag">Right to Repair</span>
+              <div class="citation-org-badge citation-org-badge--eeb">REC</div>
+              <span class="citation-tag">Recycler / Refurbisher</span>
             </div>
             <blockquote class="citation-quote">
-              "Repairability improves product longevity and reduces unnecessary disposal — a cornerstone of sustainable consumer policy."
+              Partner with FixLoop as a certified recycler or refurbisher and receive a steady stream of verified end-of-life appliances — routed responsibly through the platform.
             </blockquote>
             <footer class="citation-footer">
               <div class="citation-source">
-                <span class="citation-org">European Environmental Bureau</span>
-                <cite class="citation-ref">Coolproducts Campaign: Right to Repair</cite>
+                <span class="citation-org">For Recyclers &amp; Refurbishers</span>
+                <cite class="citation-ref">Certified e-waste intake, refurbishment pipeline &amp; parts sourcing</cite>
               </div>
-              <a href="https://eeb.org" target="_blank" rel="noopener" class="citation-link" aria-label="EEB source">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><polyline points="15,3 21,3 21,9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="10" y1="14" x2="21" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              <a href="mailto:hello@fixloop.io" class="citation-link" aria-label="Join as a recycler">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" stroke-width="2" fill="none"/><polyline points="22,6 12,13 2,6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
               </a>
             </footer>
           </article>
 
-          <!-- Citation 4: UN SDGs -->
+          <!-- Partner Benefits -->
           <article class="citation-card citation-card--sdg reveal-up" style="--card-delay: 0.25s">
             <div class="citation-card__header">
-              <div class="citation-org-badge citation-org-badge--un">SDG</div>
-              <span class="citation-tag">Global Goals</span>
+              <div class="citation-org-badge citation-org-badge--un">WHY</div>
+              <span class="citation-tag">Partner Benefits</span>
             </div>
             <p class="citation-quote citation-quote--sdg">
-              FixLoop directly advances four UN Sustainable Development Goals:
+              Every FixLoop partner gets access to:
             </p>
             <div class="sdg-pills">
-              <span class="sdg-pill sdg-pill--9">SDG 9 <em>Industry &amp; Innovation</em></span>
-              <span class="sdg-pill sdg-pill--11">SDG 11 <em>Sustainable Cities</em></span>
-              <span class="sdg-pill sdg-pill--12">SDG 12 <em>Responsible Consumption</em></span>
-              <span class="sdg-pill sdg-pill--13">SDG 13 <em>Climate Action</em></span>
+              <span class="sdg-pill sdg-pill--9">Verified Customer Network</span>
+              <span class="sdg-pill sdg-pill--11">Secure Payments &amp; Escrow</span>
+              <span class="sdg-pill sdg-pill--12">AI Job Briefs</span>
+              <span class="sdg-pill sdg-pill--13">Sustainability Dashboard</span>
             </div>
             <footer class="citation-footer">
               <div class="citation-source">
-                <span class="citation-org">United Nations</span>
-                <cite class="citation-ref">Sustainable Development Goals Report</cite>
+                <span class="citation-org">FixLoop Partner Programme</span>
+                <cite class="citation-ref">Apply at hello@fixloop.io</cite>
               </div>
-              <a href="https://sdgs.un.org" target="_blank" rel="noopener" class="citation-link" aria-label="UN SDGs source">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><polyline points="15,3 21,3 21,9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="10" y1="14" x2="21" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              <a href="mailto:hello@fixloop.io" class="citation-link" aria-label="Apply to partner programme">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" stroke-width="2" fill="none"/><polyline points="22,6 12,13 2,6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
               </a>
             </footer>
           </article>
 
-          <!-- Citation 5: DENR Philippines -->
+          <!-- Enterprise -->
           <article class="citation-card citation-card--ph reveal-up" style="--card-delay: 0.3s">
             <div class="citation-card__header">
-              <div class="citation-org-badge citation-org-badge--ph">PH</div>
-              <span class="citation-tag">Philippine Context</span>
+              <div class="citation-org-badge citation-org-badge--ph">ENT</div>
+              <span class="citation-tag">Enterprise</span>
             </div>
             <blockquote class="citation-quote">
-              "Improper electronic waste disposal contributes to environmental pollution and public health risks across the Philippines."
+              Large-scale appliance fleets, corporate sustainability programmes, and government initiatives — FixLoop scales to meet enterprise-level circular economy needs.
             </blockquote>
             <footer class="citation-footer">
               <div class="citation-source">
-                <span class="citation-org">DENR Philippines</span>
-                <cite class="citation-ref">Department of Environment &amp; Natural Resources</cite>
+                <span class="citation-org">Enterprise &amp; Government</span>
+                <cite class="citation-ref">Custom SLAs, API access &amp; dedicated account management</cite>
               </div>
-              <a href="https://denr.gov.ph" target="_blank" rel="noopener" class="citation-link" aria-label="DENR source">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><polyline points="15,3 21,3 21,9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="10" y1="14" x2="21" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              <a href="mailto:hello@fixloop.io" class="citation-link" aria-label="Contact enterprise team">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" stroke-width="2" fill="none"/><polyline points="22,6 12,13 2,6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
               </a>
             </footer>
           </article>
 
-          <!-- Citation 6: RA 9003 -->
+          <!-- Become a Partner CTA -->
           <article class="citation-card citation-card--ph reveal-up" style="--card-delay: 0.35s">
             <div class="citation-card__header">
-              <div class="citation-org-badge citation-org-badge--law">LAW</div>
-              <span class="citation-tag">Philippine Law</span>
+              <div class="citation-org-badge citation-org-badge--law">JOIN</div>
+              <span class="citation-tag">Get Started</span>
             </div>
             <blockquote class="citation-quote">
-              "The Ecological Solid Waste Management Act establishes a framework for systematic, comprehensive, and ecological solid waste management programs."
+              Ready to join the loop? Whether you repair, recycle, refurbish, or manage appliances at scale — FixLoop has a partner tier built for you.
             </blockquote>
             <footer class="citation-footer">
               <div class="citation-source">
-                <span class="citation-org">Republic of the Philippines</span>
-                <cite class="citation-ref">Republic Act No. 9003 — Ecological Solid Waste Management Act of 2000</cite>
+                <span class="citation-org">Apply Today</span>
+                <cite class="citation-ref">Email us at hello@fixloop.io or support@fixloop.io</cite>
               </div>
-              <a href="https://emb.gov.ph" target="_blank" rel="noopener" class="citation-link" aria-label="RA 9003 source">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><polyline points="15,3 21,3 21,9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="10" y1="14" x2="21" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              <a href="mailto:hello@fixloop.io" class="citation-link" aria-label="Apply to become a partner">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" stroke-width="2" fill="none"/><polyline points="22,6 12,13 2,6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
               </a>
             </footer>
           </article>
 
-        </div><!-- /citations-grid -->
+        </div><!-- /partners-grid -->
       </div>
     </section>
 
@@ -1018,13 +1252,13 @@
           <p class="footer-tagline">Closing the loop on appliance waste,<br/>one repair at a time.</p>
           <!-- Social icons -->
           <div class="social-links" aria-label="Social media links">
-            <a href="#" class="social-link" aria-label="Twitter/X">
+            <a href="https://x.com/fixloop" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Follow FixLoop on X (Twitter)">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.259 5.63L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z" fill="currentColor"/></svg>
             </a>
-            <a href="#" class="social-link" aria-label="LinkedIn">
+            <a href="https://www.linkedin.com/company/fixloop" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Follow FixLoop on LinkedIn">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" stroke="currentColor" stroke-width="1.5" fill="none"/><rect x="2" y="9" width="4" height="12" stroke="currentColor" stroke-width="1.5" fill="none"/><circle cx="4" cy="4" r="2" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
             </a>
-            <a href="#" class="social-link" aria-label="Instagram">
+            <a href="https://www.instagram.com/fixloop" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Follow FixLoop on Instagram">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.5" fill="none"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.5" fill="none"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor"/></svg>
             </a>
           </div>
@@ -1060,7 +1294,7 @@
               <li><a href="#">Case Studies</a></li>
               <li><a href="#">Community</a></li>
               <li><a href="#">Support</a></li>
-              <li><a href="#citations">Research Citations</a></li>
+              <li><a href="#partners">Partners</a></li>
             </ul>
           </div>
         </nav>
@@ -1068,8 +1302,64 @@
         <!-- Contact -->
         <div class="footer-contact">
           <h4 class="footer-col__heading">Get in Touch</h4>
-          <a href="mailto:hello@fixloop.io" class="footer-email">hello@fixloop.io</a>
-          <p class="footer-contact__note">For partnerships and enterprise inquiries, reach out directly.</p>
+
+          <div class="footer-contact-item">
+            <span class="footer-contact-label">General Inquiries</span>
+            <a href="mailto:hello@fixloop.io" class="footer-email">hello@fixloop.io</a>
+            <p class="footer-contact__note">For partnerships, press, and enterprise inquiries.</p>
+          </div>
+
+          <div class="footer-contact-item">
+            <span class="footer-contact-label">Customer Service</span>
+            <a href="mailto:support@fixloop.io" class="footer-email footer-email--support">support@fixloop.io</a>
+            <p class="footer-contact__note">Need help with a repair, booking, or account? Our support team typically responds within 24 hours.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- App Download -->
+      <div class="footer-app">
+        <p class="footer-app__label">Get the FixLoop App</p>
+        <div class="footer-app__links">
+          <a href="https://play.google.com/store" target="_blank" rel="noopener noreferrer" class="app-store-btn app-store-btn--play" aria-label="Get it on Google Play">
+            <svg class="app-store-btn__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M3.18 23.5 13.5 12 3.18.5A1.5 1.5 0 0 0 3 1.3v21.4a1.5 1.5 0 0 0 .18.8z" fill="url(#playGrad1)"/>
+              <path d="M17 8.5l-3.5-2-10.32-6L16.5 12 13.5 12 17 15.5l3-1.75A1.75 1.75 0 0 0 20 12.25v-.5A1.75 1.75 0 0 0 20 11 l-3-2.5z" fill="url(#playGrad2)"/>
+              <path d="M3.18.5 13.5 12 17 8.5 3.18.5z" fill="url(#playGrad3)"/>
+              <path d="M3.18 23.5 17 15.5 13.5 12 3.18 23.5z" fill="url(#playGrad4)"/>
+              <defs>
+                <linearGradient id="playGrad1" x1="3" y1="12" x2="13.5" y2="12" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#1DB7D9"/>
+                  <stop offset="100%" stop-color="#0086C9"/>
+                </linearGradient>
+                <linearGradient id="playGrad2" x1="13.5" y1="12" x2="20" y2="12" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#8CD948"/>
+                  <stop offset="100%" stop-color="#58C14D"/>
+                </linearGradient>
+                <linearGradient id="playGrad3" x1="3" y1="5" x2="17" y2="5" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#1DB7D9"/>
+                  <stop offset="100%" stop-color="#58C14D"/>
+                </linearGradient>
+                <linearGradient id="playGrad4" x1="3" y1="18" x2="17" y2="18" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#1DB7D9"/>
+                  <stop offset="100%" stop-color="#8CD948"/>
+                </linearGradient>
+              </defs>
+            </svg>
+            <span class="app-store-btn__text">
+              <span class="app-store-btn__sub">GET IT ON</span>
+              <span class="app-store-btn__name">Google Play</span>
+            </span>
+          </a>
+          <a href="https://apps.apple.com" target="_blank" rel="noopener noreferrer" class="app-store-btn app-store-btn--apple" aria-label="Download on the App Store">
+            <svg class="app-store-btn__icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+            </svg>
+            <span class="app-store-btn__text">
+              <span class="app-store-btn__sub">DOWNLOAD ON THE</span>
+              <span class="app-store-btn__name">App Store</span>
+            </span>
+          </a>
         </div>
       </div>
 
@@ -1083,6 +1373,43 @@
       </div>
     </div>
   </footer>
+
+  <!-- ========== SIGN IN MODAL ========== -->
+  <div class="modal-overlay" id="signin-modal" role="dialog" aria-modal="true" aria-labelledby="signin-title">
+    <div class="modal-card">
+      <button class="modal-close" id="signin-modal-close" aria-label="Close sign in form">&times;</button>
+
+      <div class="modal-header">
+        <div class="modal-badge">Welcome Back</div>
+        <h2 class="modal-title" id="signin-title">Sign In to FixLoop</h2>
+        <p class="modal-sub">Continue your circular journey.</p>
+      </div>
+
+      <form class="signup-form" id="signin-form" novalidate>
+        <div class="form-group">
+          <label for="signin-email">Email Address</label>
+          <input type="email" id="signin-email" name="email" placeholder="jane@example.com" required autocomplete="email" />
+        </div>
+
+        <div class="form-group">
+          <label for="signin-password">Password</label>
+          <input type="password" id="signin-password" name="password" placeholder="Your password" required autocomplete="current-password" />
+        </div>
+
+        <div class="form-check" style="justify-content: space-between; align-items: center;">
+          <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+            <input type="checkbox" id="signin-remember" name="remember" />
+            <span style="font-size:14px; color: var(--text-secondary);">Remember me</span>
+          </label>
+          <a href="#" class="form-link" style="font-size:13px;">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-lg signup-submit">Sign In</button>
+
+        <p class="modal-login">Don't have an account? <a href="#" class="form-link" id="switch-to-signup">Create one free</a></p>
+      </form>
+    </div>
+  </div>
 
   <!-- ========== SIGN UP MODAL ========== -->
   <div class="modal-overlay" id="signup-modal" role="dialog" aria-modal="true" aria-labelledby="signup-title">
@@ -1135,7 +1462,7 @@
 
         <button type="submit" class="btn btn-primary btn-lg signup-submit">Create Free Account</button>
 
-        <p class="modal-login">Already have an account? <a href="#" class="form-link">Sign in</a></p>
+        <p class="modal-login">Already have an account? <a href="#" class="form-link" onclick="closeSignupAndOpenSignin(event)">Sign in</a></p>
       </form>
     </div>
   </div>
