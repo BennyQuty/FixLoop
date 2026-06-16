@@ -731,3 +731,206 @@ window.openSignupModalWithRole = function (e, role) {
     }
   }, 380); // matches the modal open focus delay
 };
+
+
+// ===================================================
+// 14. SUPPORT CHAT MODAL
+// ===================================================
+(function initSupportChat() {
+  var overlay      = document.getElementById('support-modal');
+  var closeBtn     = document.getElementById('support-modal-close');
+  var messagesEl   = document.getElementById('support-chat-messages');
+  var input        = document.getElementById('support-chat-input');
+  var sendBtn      = document.getElementById('support-chat-send');
+  var topicPills   = document.querySelectorAll('.support-topic-pill');
+
+  if (!overlay) return;
+
+  var activeTopic  = 'general';
+  var greeted      = false;
+
+  // ── Bot reply bank per topic ──
+  var botReplies = {
+    general: [
+      "Hi there! 👋 I'm the FixLoop support bot. How can I help you today?",
+      "I can help with repairs, bookings, accounts, payments, or recycling. What's your issue?",
+      "Thanks for reaching out! Our team will follow up within 24 hours. Anything else?"
+    ],
+    repair: [
+      "I can help with your repair or booking! Could you share more details about the appliance and the problem you're experiencing?",
+      "Got it. Is this about a new booking, a repair that's in progress, or a completed job?",
+      "Thanks for the details. Our repair support team has been notified and will get back to you within 24 hours. You can also email support@fixloop.io."
+    ],
+    account: [
+      "I can help with account issues. Are you having trouble logging in, or is it something else with your account?",
+      "Noted. Could you provide the email address linked to your FixLoop account so our team can look into it?",
+      "Thank you! Our account team will review this and send you an email within 24 hours."
+    ],
+    payment: [
+      "I can assist with payment queries. Is this about a charge, a refund, or understanding our fee structure?",
+      "Understood. Can you share the approximate date and amount involved so we can locate the transaction?",
+      "Thanks. Our billing team will investigate and contact you at your registered email within 24 hours."
+    ],
+    recycling: [
+      "Happy to help with recycling or disposal! Are you looking to recycle an appliance, or do you have a question about our recycling partners?",
+      "Got it. Could you tell me the type and size of the appliance? Heavier appliances have weight-based fees.",
+      "Thanks! Our sustainability team will follow up with recycling options and cost estimates within 24 hours."
+    ]
+  };
+
+  var replyIndex = {}; // track reply position per topic
+
+  function getTime() {
+    var d = new Date();
+    var h = d.getHours();
+    var m = d.getMinutes();
+    return (h < 10 ? '0' : '') + h + ':' + (m < 10 ? '0' : '') + m;
+  }
+
+  function addMessage(text, isBot, skipAvatar) {
+    var wrap = document.createElement('div');
+    wrap.className = 'chat-msg ' + (isBot ? 'chat-msg--bot' : 'chat-msg--user');
+
+    if (!skipAvatar) {
+      var avatar = document.createElement('div');
+      avatar.className = 'chat-msg__avatar';
+      avatar.textContent = isBot ? 'FL' : 'You';
+      wrap.appendChild(avatar);
+    }
+
+    var inner = document.createElement('div');
+    inner.style.display = 'flex';
+    inner.style.flexDirection = 'column';
+    inner.style.gap = '2px';
+
+    var bubble = document.createElement('div');
+    bubble.className = 'chat-msg__bubble';
+    bubble.textContent = text;
+
+    var time = document.createElement('span');
+    time.className = 'chat-msg__time';
+    time.textContent = getTime();
+
+    inner.appendChild(bubble);
+    inner.appendChild(time);
+    wrap.appendChild(inner);
+
+    messagesEl.appendChild(wrap);
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+    return wrap;
+  }
+
+  function showTyping() {
+    var wrap = document.createElement('div');
+    wrap.className = 'chat-typing';
+    wrap.id = 'typing-indicator';
+
+    var avatar = document.createElement('div');
+    avatar.className = 'chat-msg__avatar';
+    avatar.textContent = 'FL';
+
+    var dots = document.createElement('div');
+    dots.className = 'chat-typing__dots';
+    for (var i = 0; i < 3; i++) {
+      var d = document.createElement('div');
+      d.className = 'chat-typing__dot';
+      dots.appendChild(d);
+    }
+
+    wrap.appendChild(avatar);
+    wrap.appendChild(dots);
+    messagesEl.appendChild(wrap);
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+  }
+
+  function hideTyping() {
+    var el = document.getElementById('typing-indicator');
+    if (el) el.remove();
+  }
+
+  function botReply(topic) {
+    var replies = botReplies[topic] || botReplies.general;
+    var idx = replyIndex[topic] || 0;
+    var text = replies[idx % replies.length];
+    replyIndex[topic] = idx + 1;
+
+    showTyping();
+    setTimeout(function () {
+      hideTyping();
+      addMessage(text, true);
+    }, 1000 + Math.random() * 600);
+  }
+
+  function sendUserMessage() {
+    var text = input.value.trim();
+    if (!text) return;
+    addMessage(text, false);
+    input.value = '';
+    botReply(activeTopic);
+  }
+
+  // ── Open / Close ──
+  window.openSupportModal = function (e) {
+    if (e) e.preventDefault();
+    overlay.classList.add('modal-open');
+    document.body.style.overflow = 'hidden';
+
+    if (!greeted) {
+      greeted = true;
+      setTimeout(function () {
+        botReply('general');
+      }, 400);
+    }
+
+    setTimeout(function () {
+      if (input) input.focus();
+    }, 450);
+  };
+
+  function closeSupport() {
+    overlay.classList.remove('modal-open');
+    document.body.style.overflow = '';
+  }
+
+  if (closeBtn) closeBtn.addEventListener('click', closeSupport);
+
+  overlay.addEventListener('click', function (e) {
+    if (e.target === overlay) closeSupport();
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && overlay.classList.contains('modal-open')) closeSupport();
+  });
+
+  // ── Send on button click ──
+  if (sendBtn) sendBtn.addEventListener('click', sendUserMessage);
+
+  // ── Send on Enter ──
+  if (input) {
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendUserMessage();
+      }
+    });
+  }
+
+  // ── Topic pill switching ──
+  topicPills.forEach(function (pill) {
+    pill.addEventListener('click', function () {
+      topicPills.forEach(function (p) { p.classList.remove('support-topic-pill--active'); });
+      pill.classList.add('support-topic-pill--active');
+      activeTopic = pill.dataset.topic;
+
+      // Add a context switch message from bot
+      var topicLabels = {
+        general: 'General support',
+        repair: 'Repair & Booking',
+        account: 'Account',
+        payment: 'Payments & Fees',
+        recycling: 'Recycling & Disposal'
+      };
+      addMessage('Switched to: ' + (topicLabels[activeTopic] || activeTopic) + '. How can I help?', true);
+    });
+  });
+})();
