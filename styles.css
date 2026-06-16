@@ -3500,9 +3500,9 @@ body.loading {
 
 /* ===== NAV — MOBILE AUTH FIX ===== */
 
-/* Desktop: hide mobile-auth row inside the nav list */
+/* Desktop: hide mobile-auth row inside the nav list — always hidden unless menu is open on mobile */
 .nav-mobile-auth {
-  display: none;
+  display: none !important;
 }
 
 /* Desktop: show the buttons in nav-actions */
@@ -3529,9 +3529,9 @@ body.loading {
     display: none !important;
   }
 
-  /* Show mobile auth row INSIDE the hamburger menu */
+  /* Show mobile auth row ONLY when the hamburger menu is open */
   .nav-links.open .nav-mobile-auth {
-    display: flex;
+    display: flex !important;
     align-items: center;
     gap: var(--space-2);
     padding: 12px 16px 8px;
