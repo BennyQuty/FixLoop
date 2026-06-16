@@ -3300,3 +3300,288 @@ body.loading {
 
 
 
+
+
+/* ============================================================
+   RESPONSIVE OVERHAUL — Phone, Tablet, Cross-device polish
+   Breakpoints:
+     ≤480px  = phone
+     ≤380px  = small phone
+     481-768 = tablet (already partially covered; extended here)
+     769-1024 = tablet landscape / small laptop (already covered)
+   ============================================================ */
+
+/* ── PHONE (≤480px) ──────────────────────────────────────── */
+@media (max-width: 480px) {
+
+  /* Typography scale down */
+  .hero-headline      { font-size: clamp(34px, 10vw, 52px); }
+  .section-heading    { font-size: clamp(26px, 7vw, 38px); }
+  .cta-heading        { font-size: clamp(26px, 8vw, 40px); }
+
+  /* Nav — keep logo readable */
+  .logo-text          { font-size: 20px; }
+  .nav-actions        { gap: var(--space-1); }
+  .nav-actions .btn-ghost-light { display: none; } /* hide Sign In on tiny phones */
+
+  /* Hero — more padding, stats stack */
+  .hero-content       { padding: var(--space-5) var(--space-2) var(--space-6); }
+  .hero-sub           { font-size: 15px; }
+  .hero-stats         { flex-direction: column; gap: 8px; }
+  .stat-chip          { padding: 10px 16px; }
+  .hero-ctas          { gap: var(--space-1); }
+  .hero-ctas .btn-lg  { width: 100%; justify-content: center; }
+
+  /* Section padding tighter */
+  .section-pad        { padding: var(--space-4) 0; }
+  :root               { --space-7: 48px; }
+
+  /* About cards — 1 col */
+  .problem-grid       { grid-template-columns: 1fr; }
+
+  /* Solution cards — 1 col */
+  .solution-grid      { grid-template-columns: 1fr; gap: 14px; }
+
+  /* HIW — 1 col, centred */
+  .hiw-timeline       { grid-template-columns: 1fr; }
+  .hiw-step           { padding: 0 var(--space-2); }
+
+  /* Features — 1 col */
+  .features-grid      { grid-template-columns: 1fr; }
+  .feature-card__inner{ min-height: 160px; }
+
+  /* Impact grid — 2 col on phone */
+  .impact-grid        { grid-template-columns: repeat(2, 1fr); gap: var(--space-2); }
+  .impact-stat        { padding: var(--space-2); }
+
+  /* Impact rings — smaller on phone */
+  .impact-stat__ring svg { width: 120px; height: 120px; }
+
+  /* Testimonials — 1 col */
+  .testimonials-grid  { grid-template-columns: 1fr; }
+
+  /* Partner cards — 1 col */
+  .citations-grid     { grid-template-columns: 1fr; }
+
+  /* Footer links — 1 col */
+  .footer-links       { grid-template-columns: 1fr; gap: var(--space-3); }
+  .footer-top         { grid-template-columns: 1fr; }
+  .footer-app__links  { flex-direction: column; }
+  .app-store-btn      { max-width: 100%; }
+  .footer-bottom      { flex-direction: column; text-align: center; gap: var(--space-1); }
+  .footer-legal       { justify-content: center; }
+
+  /* CTA buttons stack */
+  .cta-buttons        { flex-direction: column; align-items: stretch; }
+  .cta-buttons .btn   { width: 100%; justify-content: center; }
+
+  /* Modals — full width */
+  .modal-card         { padding: var(--space-3) var(--space-2); border-radius: var(--radius-md) var(--radius-md) 0 0; }
+  .modal-overlay      { align-items: flex-end; }
+  .form-row           { grid-template-columns: 1fr; }
+
+  /* Support chat — full screen */
+  .support-chat-card  { border-radius: 0; height: 100dvh; max-height: 100dvh; }
+
+  /* Partner card images shorter */
+  .partner-card__img-wrap { height: 140px; }
+
+  /* Social auth buttons — smaller text */
+  .social-btn         { font-size: 13px; padding: 10px 12px; }
+  .auth-divider span  { font-size: 11px; }
+
+  /* Blog/Careers modals */
+  .career-item        { flex-direction: column; gap: var(--space-2); }
+  .career-item__head  { flex-direction: column; align-items: flex-start; gap: 8px; }
+}
+
+/* ── SMALL PHONE (≤380px) ────────────────────────────────── */
+@media (max-width: 380px) {
+  .hero-headline      { font-size: clamp(28px, 9vw, 40px); }
+  .nav-logo .logo-text{ display: none; } /* show only icon on tiny screens */
+  .impact-grid        { grid-template-columns: 1fr; } /* single col on very small */
+  .impact-stat__ring svg { width: 100px; height: 100px; }
+  .stat-chip__num     { font-size: 18px; }
+}
+
+/* ── TABLET (481px – 768px) ──────────────────────────────── */
+@media (min-width: 481px) and (max-width: 768px) {
+
+  /* Hero — comfortable single-col layout */
+  .hero-headline      { font-size: clamp(38px, 8vw, 60px); }
+  .hero-sub           { font-size: 16px; }
+  .hero-stats         { gap: var(--space-1); }
+
+  /* About — 2-col grid on tablet */
+  .problem-grid       { grid-template-columns: repeat(2, 1fr); }
+
+  /* Solution — 2 col */
+  .solution-grid      { grid-template-columns: repeat(2, 1fr); gap: 18px; }
+
+  /* HIW — 2 col */
+  .hiw-timeline       { grid-template-columns: repeat(2, 1fr); }
+
+  /* Features — 2 col */
+  .features-grid      { grid-template-columns: repeat(2, 1fr); }
+
+  /* Impact — 2 col */
+  .impact-grid        { grid-template-columns: repeat(2, 1fr); }
+
+  /* Testimonials — 1 col (tall cards need room) */
+  .testimonials-grid  { grid-template-columns: 1fr; }
+
+  /* Partners — 2 col */
+  .citations-grid     { grid-template-columns: repeat(2, 1fr); }
+
+  /* Footer links — 2 col */
+  .footer-links       { grid-template-columns: repeat(2, 1fr); }
+  .footer-top         { grid-template-columns: 1fr; gap: var(--space-4); }
+
+  /* CTA */
+  .cta-buttons        { flex-direction: row; flex-wrap: wrap; justify-content: center; }
+}
+
+/* ── TABLET LANDSCAPE (769px – 1024px) ───────────────────── */
+@media (min-width: 769px) and (max-width: 1024px) {
+
+  /* Nav Sign In visible */
+  .nav-actions .btn-ghost-light { display: inline-flex; }
+
+  /* Hero — wider content */
+  .hero-content       { max-width: 600px; }
+
+  /* Features — 2 col */
+  .features-grid      { grid-template-columns: repeat(2, 1fr); }
+
+  /* Impact — 2 col */
+  .impact-grid        { grid-template-columns: repeat(2, 1fr); }
+
+  /* Solution — 2 or 3 col */
+  .solution-grid      { grid-template-columns: repeat(2, 1fr); }
+
+  /* Testimonials — 2 col on landscape tablet */
+  .testimonials-grid  { grid-template-columns: repeat(2, 1fr); }
+
+  /* Partners */
+  .citations-grid     { grid-template-columns: repeat(2, 1fr); }
+
+  /* Footer */
+  .footer-top         { grid-template-columns: 1fr 1.5fr; }
+  .footer-links       { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* ── TOUCH DEVICES — remove hover-only interactions ─────── */
+@media (hover: none) and (pointer: coarse) {
+  /* Feature card flip triggered by tap, not hover */
+  .feature-card:hover { transform: none; box-shadow: none; }
+  .feature-card:hover .feature-card__inner { transform: none; }
+  .feature-card:hover::before { transform: scaleX(0); }
+
+  /* Partner card overlay always visible at reduced opacity on touch */
+  .partner-card__img-overlay {
+    opacity: 0.85;
+    transform: translateY(0);
+  }
+  .partner-card__overlay-btn { transform: translateY(0); }
+
+  /* Scroll indicator hidden on touch (redundant) */
+  .scroll-indicator   { display: none; }
+}
+
+/* ── PRINT ───────────────────────────────────────────────── */
+@media print {
+  .nav-header, .loader-overlay, .modal-overlay,
+  .support-chat-overlay, .scroll-indicator,
+  .hero-bg, .blob, .cta-bg, .impact-bg { display: none !important; }
+  body { background: white; color: black; }
+  a    { color: black; text-decoration: underline; }
+}
+
+
+/* ===== NAV — MOBILE AUTH FIX ===== */
+
+/* Desktop: hide mobile-auth row inside the nav list */
+.nav-mobile-auth {
+  display: none;
+}
+
+/* Desktop: show the buttons in nav-actions */
+.nav-desktop-only {
+  display: inline-flex;
+}
+
+/* Force nav-inner to never wrap — logo + links + actions always on one row */
+.nav-inner {
+  flex-wrap: nowrap;
+}
+
+/* nav-actions: always flex row, centred, no wrap */
+.nav-actions {
+  flex-wrap: nowrap;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* ── Mobile: only hamburger in nav-actions ── */
+@media (max-width: 767px) {
+  /* Hide desktop buttons from nav-actions on mobile */
+  .nav-desktop-only {
+    display: none !important;
+  }
+
+  /* Show mobile auth row INSIDE the hamburger menu */
+  .nav-links.open .nav-mobile-auth {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: 12px 16px 8px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    margin-top: 4px;
+  }
+
+  /* Buttons inside mobile menu */
+  .nav-mobile-auth__signin {
+    flex: 1;
+    justify-content: center;
+    text-align: center;
+    font-size: 14px;
+    padding: 10px 16px;
+  }
+
+  .nav-mobile-auth__signup {
+    flex: 1;
+    justify-content: center;
+    text-align: center;
+    font-size: 14px;
+    padding: 10px 16px;
+  }
+
+  /* Hamburger always visible and aligned right */
+  .hamburger {
+    display: flex !important;
+    flex-shrink: 0;
+  }
+
+  /* Prevent nav-inner from overflowing */
+  .nav-inner {
+    padding: 0 var(--space-2);
+    justify-content: space-between;
+  }
+
+  /* Logo stays left, actions (hamburger only) stays right */
+  .nav-logo {
+    flex-shrink: 0;
+    min-width: 0;
+  }
+}
+
+/* ── Very small phones ── */
+@media (max-width: 380px) {
+  .nav-inner {
+    padding: 0 12px;
+  }
+
+  .logo-text {
+    font-size: 18px;
+  }
+}
