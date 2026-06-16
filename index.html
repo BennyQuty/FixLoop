@@ -65,12 +65,19 @@
         <li><a href="#features" class="nav-link">Features</a></li>
         <li><a href="#impact" class="nav-link">Impact</a></li>
         <li><a href="#partners" class="nav-link">Partners</a></li>
+        <!-- Mobile-only auth actions — shown inside the hamburger menu -->
+        <li class="nav-mobile-auth">
+          <a href="#" class="btn btn-ghost-light btn-sm nav-mobile-auth__signin" onclick="openSigninModal(event)">Sign In</a>
+          <a href="#cta" class="btn btn-primary btn-sm nav-mobile-auth__signup" onclick="openSignupModal(event)">Get Started</a>
+        </li>
       </ul>
 
       <!-- CTA + Hamburger -->
       <div class="nav-actions">
-        <a href="#" class="btn btn-ghost-light btn-sm hide-mobile" onclick="openSigninModal(event)">Sign In</a>
-        <a href="#cta" class="btn btn-primary btn-sm" onclick="openSignupModal(event)">Get Started</a>
+        <!-- Desktop: show both buttons -->
+        <a href="#" class="btn btn-ghost-light btn-sm nav-desktop-only" onclick="openSigninModal(event)">Sign In</a>
+        <a href="#cta" class="btn btn-primary btn-sm nav-desktop-only" onclick="openSignupModal(event)">Get Started</a>
+        <!-- Always-visible hamburger -->
         <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-links">
           <span class="hamburger-line"></span>
           <span class="hamburger-line"></span>
@@ -1306,7 +1313,7 @@
             <h4 class="footer-col__heading">Company</h4>
             <ul role="list">
               <li><a href="#about">About Us</a></li>
-              <li><a href="mailto:hello@fixloop.io?subject=Careers%20at%20FixLoop">Careers</a></li>
+              <li><a href="https://www.linkedin.com/company/fixloop/jobs" target="_blank" rel="noopener noreferrer">Careers</a></li>
               <li><a href="mailto:hello@fixloop.io?subject=Press%20Inquiry">Press</a></li>
               <li><a href="#partners">Partners</a></li>
               <li><a href="#impact">Sustainability Report</a></li>
@@ -1318,7 +1325,7 @@
             <h4 class="footer-col__heading">Resources</h4>
             <ul role="list">
               <li><a href="mailto:hello@fixloop.io?subject=Documentation%20Access">Documentation</a></li>
-              <li><a href="https://medium.com/@fixloop" target="_blank" rel="noopener noreferrer">Blog</a></li>
+              <li><a href="https://www.linkedin.com/company/fixloop/posts" target="_blank" rel="noopener noreferrer">Blog</a></li>
               <li><a href="#partners">Case Studies</a></li>
               <li><a href="https://community.fixloop.io" target="_blank" rel="noopener noreferrer">Community</a></li>
               <li><a href="#" onclick="openSupportModal(event)">Support</a></li>
@@ -1452,7 +1459,7 @@
       <!-- Input bar -->
       <div class="support-chat-input-bar">
         <input
-          type="text"
+          type="te
           id="support-chat-input"
           class="support-chat-input"
           placeholder="Describe your issue…"
@@ -1620,6 +1627,129 @@
 
         <p class="modal-login">Already have an account? <a href="#" class="form-link" onclick="closeSignupAndOpenSignin(event)">Sign in</a></p>
       </form>
+    </div>
+  </div>
+
+  <!-- ========== CAREERS MODAL ========== -->
+  <div class="modal-overlay" id="careers-modal" role="dialog" aria-modal="true" aria-labelledby="careers-title">
+    <div class="modal-card">
+      <button class="modal-close" id="careers-modal-close" aria-label="Close careers">&times;</button>
+      <div class="modal-header">
+        <div class="modal-badge">We're Hiring</div>
+        <h2 class="modal-title" id="careers-title">Join the FixLoop Team</h2>
+        <p class="modal-sub">Help us build the circular economy. Remote-first, mission-driven, globally distributed.</p>
+      </div>
+
+      <div class="careers-list">
+        <article class="career-item">
+          <div class="career-item__head">
+            <div>
+              <h3 class="career-item__title">Full-Stack Engineer</h3>
+              <span class="career-item__meta">Engineering · Remote · Full-time</span>
+            </div>
+            <a href="mailto:hello@fixloop.io?subject=Application%20-%20Full-Stack%20Engineer" class="btn btn-primary btn-sm">Apply</a>
+          </div>
+          <p class="career-item__desc">Build the platform that keeps appliances in use longer. Node.js, React, PostgreSQL stack.</p>
+        </article>
+
+        <article class="career-item">
+          <div class="career-item__head">
+            <div>
+              <h3 class="career-item__title">Product Designer (UX/UI)</h3>
+              <span class="career-item__meta">Design · Remote · Full-time</span>
+            </div>
+            <a href="mailto:hello@fixloop.io?subject=Application%20-%20Product%20Designer" class="btn btn-primary btn-sm">Apply</a>
+          </div>
+          <p class="career-item__desc">Shape how users interact with repair, recycling, and marketplace features across web and mobile.</p>
+        </article>
+
+        <article class="career-item">
+          <div class="career-item__head">
+            <div>
+              <h3 class="career-item__title">Sustainability Partnerships Manager</h3>
+              <span class="career-item__meta">Business · Remote · Full-time</span>
+            </div>
+            <a href="mailto:hello@fixloop.io?subject=Application%20-%20Partnerships%20Manager" class="btn btn-primary btn-sm">Apply</a>
+          </div>
+          <p class="career-item__desc">Grow FixLoop's network of recyclers, refurbishers, and corporate partners across Asia-Pacific and beyond.</p>
+        </article>
+
+        <article class="career-item">
+          <div class="career-item__head">
+            <div>
+              <h3 class="career-item__title">Technician Community Lead</h3>
+              <span class="career-item__meta">Operations · Remote · Full-time</span>
+            </div>
+            <a href="mailto:hello@fixloop.io?subject=Application%20-%20Technician%20Community%20Lead" class="btn btn-primary btn-sm">Apply</a>
+          </div>
+          <p class="career-item__desc">Onboard, support, and grow our verified technician network across key markets.</p>
+        </article>
+      </div>
+
+      <p class="career-footer-note">
+        Don't see a fit? Send your CV to
+        <a href="mailto:hello@fixloop.io?subject=General%20Application" class="form-link">hello@fixloop.io</a>
+        — we're always looking for great people.
+      </p>
+    </div>
+  </div>
+
+  <!-- ========== BLOG MODAL ========== -->
+  <div class="modal-overlay" id="blog-modal" role="dialog" aria-modal="true" aria-labelledby="blog-title">
+    <div class="modal-card">
+      <button class="modal-close" id="blog-modal-close" aria-label="Close blog">&times;</button>
+      <div class="modal-header">
+        <div class="modal-badge">FixLoop Journal</div>
+        <h2 class="modal-title" id="blog-title">Insights &amp; Updates</h2>
+        <p class="modal-sub">Thoughts on repair, circular economy, sustainability, and the technology making it possible.</p>
+      </div>
+
+      <div class="blog-list">
+        <article class="blog-item">
+          <span class="blog-item__tag">Circular Economy</span>
+          <h3 class="blog-item__title">Why Repair is the Most Underrated Climate Action</h3>
+          <p class="blog-item__excerpt">Every appliance repaired instead of replaced keeps an average of 12 kg of CO₂ out of the atmosphere. Here's the math — and why it matters.</p>
+          <div class="blog-item__foot">
+            <span class="blog-item__date">June 2025</span>
+            <a href="mailto:hello@fixloop.io?subject=Blog%20Article%20Request" class="blog-item__read">Read more →</a>
+          </div>
+        </article>
+
+        <article class="blog-item">
+          <span class="blog-item__tag">Product</span>
+          <h3 class="blog-item__title">Introducing AI Diagnostics: How FixLoop Gets Technicians Ready Before They Arrive</h3>
+          <p class="blog-item__excerpt">Our new AI-powered diagnostic brief means technicians show up with the right parts — improving first-visit success rates by over 40%.</p>
+          <div class="blog-item__foot">
+            <span class="blog-item__date">May 2025</span>
+            <a href="mailto:hello@fixloop.io?subject=Blog%20Article%20Request" class="blog-item__read">Read more →</a>
+          </div>
+        </article>
+
+        <article class="blog-item">
+          <span class="blog-item__tag">Community</span>
+          <h3 class="blog-item__title">From Side Hustle to Full-Time: How Technicians Are Growing With FixLoop</h3>
+          <p class="blog-item__excerpt">Meet three independent repair technicians who tripled their monthly bookings after joining FixLoop's verified network.</p>
+          <div class="blog-item__foot">
+            <span class="blog-item__date">April 2025</span>
+            <a href="mailto:hello@fixloop.io?subject=Blog%20Article%20Request" class="blog-item__read">Read more →</a>
+          </div>
+        </article>
+
+        <article class="blog-item">
+          <span class="blog-item__tag">E-Waste</span>
+          <h3 class="blog-item__title">62 Million Tonnes: The E-Waste Crisis Nobody Is Talking About</h3>
+          <p class="blog-item__excerpt">A deep dive into the 2024 Global E-Waste Monitor data — and what FixLoop is doing about it in Southeast Asia and beyond.</p>
+          <div class="blog-item__foot">
+            <span class="blog-item__date">March 2025</span>
+            <a href="mailto:hello@fixloop.io?subject=Blog%20Article%20Request" class="blog-item__read">Read more →</a>
+          </div>
+        </article>
+      </div>
+
+      <p class="career-footer-note" style="text-align:center;">
+        Want to write for FixLoop?
+        <a href="mailto:hello@fixloop.io?subject=Guest%20Blog%20Submission" class="form-link">Submit a pitch</a>
+      </p>
     </div>
   </div>
 
