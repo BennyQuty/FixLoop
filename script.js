@@ -934,3 +934,36 @@ window.openSignupModalWithRole = function (e, role) {
     });
   });
 })();
+
+
+// ===================================================
+// TASK 2: Social Auth — OAuth simulation redirects
+// ===================================================
+window.handleSocialAuth = function (e, provider, mode) {
+  if (e) e.preventDefault();
+
+  var destinations = {
+    google:   'https://accounts.google.com',
+    facebook: 'https://www.facebook.com',
+    twitter:  'https://www.x.com'
+  };
+
+  var url = destinations[provider];
+  if (!url) return;
+
+  // Show brief loading state on the button
+  var btn = e && e.currentTarget;
+  if (btn) {
+    btn.classList.add('loading');
+    btn.setAttribute('disabled', 'true');
+  }
+
+  // Redirect after a brief moment to let the loading state render
+  setTimeout(function () {
+    window.open(url, '_blank', 'noopener,noreferrer');
+    if (btn) {
+      btn.classList.remove('loading');
+      btn.removeAttribute('disabled');
+    }
+  }, 350);
+};
