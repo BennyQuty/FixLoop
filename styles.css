@@ -1,4 +1,4 @@
-/* ===================================================
+﻿/* ===================================================
    FIXLOOP — styles.css
    Circular economy platform landing page
    =================================================== */
@@ -1240,127 +1240,259 @@ button {
 .footer {
   background: var(--bg-dark);
   border-top: 1px solid rgba(29,183,217,0.08);
-  padding: var(--space-7) 0 var(--space-4);
+  overflow: hidden;
 }
 
-.footer-top {
+/* ── Tier 1: 4-column grid ── */
+.footer-grid-wrap {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 56px 24px 48px;
+}
+
+.footer-grid {
   display: grid;
-  grid-template-columns: 1.5fr 2fr 1fr;
-  gap: var(--space-6);
-  margin-bottom: var(--space-6);
+  grid-template-columns: repeat(4, 1fr);
+  gap: 48px;
+  align-items: start;
 }
 
-.footer-logo {
-  margin-bottom: var(--space-2);
-}
-
-.footer-tagline {
-  font-size: 14px;
-  color: rgba(255,255,255,0.45);
-  line-height: 1.7;
-  margin-bottom: var(--space-3);
-}
-
-.social-links {
+/* Column shared styles */
+.footer-col {
   display: flex;
-  gap: var(--space-1);
+  flex-direction: column;
+  gap: 0;
 }
 
-.social-link {
+.footer-col__heading {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+  margin-bottom: 20px;
+}
+
+.footer-col__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.footer-col__list li {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 12px;
+}
+
+.footer-col__list li:last-child {
+  margin-bottom: 0;
+}
+
+.footer-col__list a,
+.footer-col__list span {
+  font-size: 13.5px;
+  color: #9CA3AF;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+  line-height: 1.45;
+}
+
+.footer-col__list a:hover {
+  color: #ffffff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Customer care labels */
+.footer-care-type {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.25);
+  margin-bottom: 2px;
+}
+
+.footer-care-email {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--cyan) !important;
+  text-decoration: none !important;
+  transition: color var(--transition-fast);
+}
+
+.footer-care-email:hover { color: var(--lime) !important; }
+
+.footer-care-email--green { color: var(--lime) !important; }
+.footer-care-email--green:hover { color: var(--eco-green) !important; }
+
+/* Chat button */
+.footer-chat-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  align-self: flex-start;
+  margin-top: 18px;
+  padding: 7px 16px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 999px;
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: rgba(255,255,255,0.7);
+  cursor: pointer;
+  transition: var(--transition-base);
+  white-space: nowrap;
+}
+
+.footer-chat-btn:hover {
+  border-color: rgba(29,183,217,0.45);
+  color: var(--white);
+  background: rgba(29,183,217,0.07);
+}
+
+/* Social icons row */
+.footer-social-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.footer-social-icon {
   width: 36px;
   height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(29,183,217,0.1);
+  border: 1px solid rgba(29,183,217,0.12);
   border-radius: var(--radius-sm);
   color: rgba(255,255,255,0.5);
   transition: var(--transition-base);
+  text-decoration: none !important;
 }
 
-.social-link:hover {
+.footer-social-icon:hover {
   background: rgba(29,183,217,0.1);
-  border-color: rgba(29,183,217,0.25);
+  border-color: rgba(29,183,217,0.3);
   color: var(--cyan);
   transform: translateY(-2px);
 }
 
-/* Footer links grid */
-.footer-links {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-4);
+/* App store badges stacked */
+.footer-app-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.footer-col__heading {
-  font-family: var(--font-display);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.35);
-  margin-bottom: var(--space-2);
+/* ── Tier 2: Brand center divider ── */
+.footer-brand-center {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 0 24px;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding-bottom: 40px;
 }
 
-.footer-col ul { display: flex; flex-direction: column; gap: 10px; }
-
-.footer-col a {
-  font-size: 14px;
-  color: rgba(255,255,255,0.5);
-  transition: var(--transition-fast);
+.footer-brand-center__line {
+  flex: 1;
+  height: 1px;
+  background: rgba(255,255,255,0.07);
 }
 
-.footer-col a:hover { color: var(--cyan); }
-
-/* Footer contact */
-.footer-email {
-  display: inline-block;
-  font-family: var(--font-display);
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--cyan);
-  margin-bottom: var(--space-1);
-  transition: var(--transition-fast);
+.footer-brand-center__logo {
+  flex-shrink: 0;
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.7;
+  transition: opacity var(--transition-base);
 }
 
-.footer-email:hover { color: var(--lime); }
+.footer-brand-center__logo:hover { opacity: 1; }
 
-.footer-contact__note {
-  font-size: 13px;
-  color: rgba(255,255,255,0.35);
-  line-height: 1.6;
-  margin-top: var(--space-1);
-}
-
-/* Footer bottom */
-.footer-bottom {
+/* ── Tier 3: Solid bottom bar ── */
+.footer-bar {
+  width: 100%;
+  background: var(--bg-dark-3);
+  border-top: 1px solid rgba(29,183,217,0.1);
+  padding: 14px 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-top: var(--space-3);
-  border-top: 1px solid rgba(255,255,255,0.06);
+  gap: 16px;
   flex-wrap: wrap;
-  gap: var(--space-2);
 }
 
-.footer-copy {
-  font-size: 13px;
-  color: rgba(255,255,255,0.3);
+.footer-bar__left,
+.footer-bar__right,
+.footer-bar__right a,
+.footer-bar__right span {
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  text-decoration: none;
+  transition: color var(--transition-fast);
 }
 
-.footer-legal {
+.footer-bar__right {
   display: flex;
-  gap: var(--space-3);
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
-.footer-legal a {
-  font-size: 13px;
-  color: rgba(255,255,255,0.3);
-  transition: var(--transition-fast);
+.footer-bar__right a:hover { color: rgba(255,255,255,0.8); }
+
+.footer-bar__sep {
+  color: rgba(255,255,255,0.2);
+  font-weight: 400;
 }
 
-.footer-legal a:hover { color: rgba(255,255,255,0.6); }
+/* Remove old footer classes that no longer exist */
+.footer-top,
+.footer-brand,
+.footer-links,
+.footer-contact,
+.footer-contact-block,
+.footer-app,
+.footer-bottom,
+.footer-brand-bar,
+.footer-brand-divider { display: none !important; }
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .footer-grid { grid-template-columns: repeat(2, 1fr); gap: 36px; }
+}
+
+@media (max-width: 640px) {
+  .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+  .footer-grid-wrap { padding: 40px 20px 32px; }
+  .footer-brand-center { padding-bottom: 28px; }
+  .footer-brand-center__logo { padding: 0 24px; }
+  .footer-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 14px 20px;
+  }
+  .footer-bar__right { flex-wrap: wrap; }
+}
 
 /* ===== REDUCED MOTION ===== */
 @media (prefers-reduced-motion: reduce) {
@@ -1476,17 +1608,31 @@ button {
   }
 
   .footer-top {
-    grid-template-columns: 1fr;
-    gap: var(--space-4);
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3);
   }
 
-  .footer-links {
-    grid-template-columns: repeat(2, 1fr);
+  /* brand spans both cols on mobile */
+  .footer-brand {
+    grid-column: 1 / -1;
+  }
+
+  .footer-col--apps-contact {
+    grid-column: 1 / -1;
+  }
+
+  .footer-app-badges {
+    flex-direction: row;
+    flex-wrap: wrap;
   }
 
   .footer-bottom {
     flex-direction: column;
     text-align: center;
+  }
+
+  .footer-legal {
+    justify-content: center;
   }
 
   .hero-ctas {
@@ -2281,18 +2427,90 @@ body.loading {
   outline-offset: 4px;
 }
 
-.hiw-step__tap {
-  display: inline-block;
-  font-size: 12px;
-  opacity: 0.5;
-  transition: transform var(--transition-base), opacity var(--transition-base);
-  vertical-align: middle;
-  margin-left: 4px;
+/* ── Clickable node: scale + glow on hover ── */
+.hiw-step--interactive .hiw-step__node {
+  transition: transform var(--transition-spring);
 }
 
-.hiw-step--interactive[aria-expanded="true"] .hiw-step__tap {
-  transform: rotate(180deg);
-  opacity: 1;
+.hiw-step--interactive:hover .hiw-step__node,
+.hiw-step--interactive:focus-visible .hiw-step__node {
+  transform: scale(1.12);
+}
+
+/* Outer ripple ring that pulses on idle to signal interactivity */
+.hiw-step--interactive .hiw-step__node::before {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 1.5px solid var(--cyan);
+  opacity: 0;
+  animation: nodeRipple 2.8s ease-out infinite;
+  pointer-events: none;
+}
+
+/* Stagger the ripple per step so they don't all pulse together */
+.hiw-step--interactive:nth-child(2) .hiw-step__node::before { animation-delay: 0.7s; }
+.hiw-step--interactive:nth-child(3) .hiw-step__node::before { animation-delay: 1.4s; }
+.hiw-step--interactive:nth-child(4) .hiw-step__node::before { animation-delay: 2.1s; }
+.hiw-step--interactive:nth-child(5) .hiw-step__node::before { animation-delay: 0.35s; }
+
+@keyframes nodeRipple {
+  0%   { opacity: 0.7; transform: scale(0.9); }
+  70%  { opacity: 0;   transform: scale(1.5); }
+  100% { opacity: 0;   transform: scale(1.5); }
+}
+
+/* Stop ripple while expanded — it's already open */
+.hiw-step--interactive[aria-expanded="true"] .hiw-step__node::before {
+  animation: none;
+  opacity: 0;
+}
+
+/* Small "tap" badge pinned to the bottom-right of the node */
+.hiw-step--interactive .hiw-step__node::after {
+  content: '↓';
+  position: absolute;
+  bottom: -4px;
+  right: -4px;
+  width: 18px;
+  height: 18px;
+  background: var(--gradient-brand);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  color: #fff;
+  font-weight: 700;
+  line-height: 18px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(29, 183, 217, 0.45);
+  transition: transform var(--transition-base), opacity var(--transition-base);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Rotate badge to ✕ when open */
+.hiw-step--interactive[aria-expanded="true"] .hiw-step__node::after {
+  content: '↑';
+  transform: scale(1.15);
+}
+
+/* Subtle dot on the number itself — glow ring around the num */
+.hiw-step--interactive .hiw-step__num {
+  text-shadow: 0 0 16px rgba(29, 183, 217, 0.35);
+  transition: text-shadow var(--transition-base);
+}
+
+.hiw-step--interactive:hover .hiw-step__num,
+.hiw-step--interactive:focus-visible .hiw-step__num {
+  text-shadow: 0 0 24px rgba(88, 193, 77, 0.6);
+}
+
+/* Hide the old inline ↓ arrow in the title since the badge replaces it */
+.hiw-step__tap {
+  display: none;
 }
 
 /* Fee panel — default (Steps 2 & 3 drop down inline) */
@@ -3355,7 +3573,11 @@ body.loading {
   .impact-stat        { padding: var(--space-2); }
 
   /* Impact rings — smaller on phone */
+  .impact-stat__ring     { width: 120px; height: 120px; }
   .impact-stat__ring svg { width: 120px; height: 120px; }
+  .impact-stat__content  { width: 96px; }
+  .impact-stat__num      { font-size: 18px; }
+  .impact-stat__label    { font-size: 10px; }
 
   /* Testimonials — 1 col */
   .testimonials-grid  { grid-template-columns: 1fr; }
@@ -3363,9 +3585,10 @@ body.loading {
   /* Partner cards — 1 col */
   .citations-grid     { grid-template-columns: 1fr; }
 
-  /* Footer links — 1 col */
-  .footer-links       { grid-template-columns: 1fr; gap: var(--space-3); }
+  /* Footer — single col on small phones */
   .footer-top         { grid-template-columns: 1fr; }
+  .footer-brand       { grid-column: 1; }
+  .footer-col--apps-contact { grid-column: 1; }
   .footer-app__links  { flex-direction: column; }
   .app-store-btn      { max-width: 100%; }
   .footer-bottom      { flex-direction: column; text-align: center; gap: var(--space-1); }
@@ -3400,7 +3623,11 @@ body.loading {
   .hero-headline      { font-size: clamp(28px, 9vw, 40px); }
   .nav-logo .logo-text{ display: none; } /* show only icon on tiny screens */
   .impact-grid        { grid-template-columns: 1fr; } /* single col on very small */
+  .impact-stat__ring     { width: 100px; height: 100px; }
   .impact-stat__ring svg { width: 100px; height: 100px; }
+  .impact-stat__content  { width: 80px; }
+  .impact-stat__num      { font-size: 16px; }
+  .impact-stat__label    { font-size: 9px; }
   .stat-chip__num     { font-size: 18px; }
 }
 
@@ -3466,8 +3693,8 @@ body.loading {
   .citations-grid     { grid-template-columns: repeat(2, 1fr); }
 
   /* Footer */
-  .footer-top         { grid-template-columns: 1fr 1.5fr; }
-  .footer-links       { grid-template-columns: repeat(3, 1fr); }
+  .footer-top         { grid-template-columns: 180px 1fr 1fr 1fr; }
+  .footer-brand       { grid-column: auto; }
 }
 
 /* ── TOUCH DEVICES — remove hover-only interactions ─────── */
@@ -3794,13 +4021,21 @@ img, svg, video {
 
   /* ── Footer ── */
   .footer-top {
-    grid-template-columns: 1fr;
-    gap: var(--space-4);
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3);
   }
 
-  .footer-links {
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-3);
+  .footer-brand {
+    grid-column: 1 / -1;
+  }
+
+  .footer-col--apps-contact {
+    grid-column: 1 / -1;
+  }
+
+  .footer-app-badges {
+    flex-direction: row;
+    flex-wrap: wrap;
   }
 
   .footer-app__links {
@@ -3986,11 +4221,15 @@ img, svg, video {
 
   /* Footer */
   .footer-top {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
   }
 
-  .footer-links {
-    grid-template-columns: repeat(3, 1fr);
+  .footer-brand {
+    grid-column: 1 / -1;
+  }
+
+  .footer-col--apps-contact {
+    grid-column: 1 / -1;
   }
 
   /* Modals */
@@ -4040,13 +4279,12 @@ img, svg, video {
   }
 
   .footer-top {
-    grid-template-columns: 1fr 1.5fr;
+    grid-template-columns: 180px 1fr 1fr 1fr;
   }
 
-  .footer-links {
-    grid-template-columns: repeat(3, 1fr);
+  .footer-brand {
+    grid-column: auto;
   }
-}
 
 /* ==============================================================
    TOUCH DEVICES — disable desktop-only hover states
