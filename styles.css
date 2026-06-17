@@ -3585,3 +3585,494 @@ body.loading {
     font-size: 18px;
   }
 }
+
+
+/* ===== TASK 1: Press link — Gmail redirect on desktop only ===== */
+/* On mobile we override back to a mailto so mobile Press still works as before */
+@media (max-width: 767px) {
+  .footer-press-link {
+    pointer-events: none; /* disable tap on mobile — no redirect */
+    /* Mobile already has its own implementation; neutralise this link */
+  }
+}
+
+
+/* ============================================================
+   TASK 3 — FULL RESPONSIVE OVERHAUL
+   Clean, simplistic layouts for mobile & tablet.
+   No horizontal scroll. Vertical single-column on mobile.
+   Generous whitespace. Readable typography.
+   ============================================================ */
+
+/* ── Global overflow guard — prevents horizontal scroll on ALL devices ── */
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+img, svg, video {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ── Base container padding tightened on small screens ── */
+.container {
+  padding-left: var(--space-2);
+  padding-right: var(--space-2);
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding-left: var(--space-3);
+    padding-right: var(--space-3);
+  }
+}
+
+/* ==============================================================
+   MOBILE — ≤767px  (phones, portrait)
+   All grids → single column. Text scales down gracefully.
+   ============================================================== */
+@media (max-width: 767px) {
+
+  /* ── Spacing ── */
+  :root {
+    --space-5: 36px;
+    --space-6: 48px;
+    --space-7: 56px;
+  }
+
+  .section-pad {
+    padding: 48px 0;
+  }
+
+  /* ── Typography ── */
+  .hero-headline {
+    font-size: clamp(32px, 9vw, 52px);
+    letter-spacing: -0.02em;
+  }
+
+  .section-heading {
+    font-size: clamp(26px, 6.5vw, 38px);
+  }
+
+  .section-sub {
+    font-size: 16px;
+    max-width: 100%;
+  }
+
+  .cta-heading {
+    font-size: clamp(26px, 8vw, 42px);
+  }
+
+  /* ── Navigation ── */
+  .nav-inner {
+    height: 68px;
+    padding: 0 var(--space-2);
+  }
+
+  :root { --nav-height: 68px; }
+
+  /* ── Hero ── */
+  .hero {
+    min-height: 100svh;
+    padding-top: 68px;
+  }
+
+  .hero-content {
+    padding: var(--space-5) var(--space-2) var(--space-6);
+    max-width: 100%;
+  }
+
+  .hero-sub {
+    font-size: 15px;
+  }
+
+  .hero-ctas {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hero-ctas .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .hero-stats {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .stat-chip {
+    flex: 1 1 calc(50% - 4px);
+    min-width: 120px;
+  }
+
+  /* ── About Us / Problem grid ── */
+  .problem-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+
+  /* ── Solution (Circular Future) grid ── */
+  .solution-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-2);
+  }
+
+  .solution-card {
+    padding: var(--space-3);
+  }
+
+  /* ── How It Works ── */
+  .hiw-timeline {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  .hiw-connector {
+    display: none;
+  }
+
+  .hiw-step {
+    align-items: center;
+    text-align: center;
+    padding: 0 var(--space-2);
+  }
+
+  .hiw-step__desc {
+    text-align: center;
+    max-width: 300px;
+  }
+
+  /* ── Features grid ── */
+  .features-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+
+  .feature-card__inner {
+    min-height: 160px;
+  }
+
+  /* ── Impact grid ── */
+  .impact-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3);
+  }
+
+  /* ── Testimonials ── */
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+
+  /* ── Partners / Citations grid ── */
+  .citations-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+
+  /* ── CTA section ── */
+  .cta-buttons {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-2);
+  }
+
+  .cta-buttons .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .cta-sub {
+    font-size: 16px;
+  }
+
+  /* ── Footer ── */
+  .footer-top {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  .footer-links {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3);
+  }
+
+  .footer-app__links {
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .app-store-btn {
+    max-width: 260px;
+    width: 100%;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--space-2);
+  }
+
+  .footer-legal {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-2);
+  }
+
+  /* ── Modals — full-width, bottom-sheet style ── */
+  .modal-overlay {
+    align-items: flex-end;
+    padding: 0;
+  }
+
+  .modal-card {
+    width: 100%;
+    max-width: 100%;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    padding: var(--space-4) var(--space-3) var(--space-3);
+    max-height: 92svh;
+    overflow-y: auto;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: var(--space-2);
+  }
+
+  /* ── Social auth buttons ── */
+  .social-auth {
+    gap: 8px;
+  }
+
+  .social-btn {
+    font-size: 13px;
+    padding: 10px 14px;
+  }
+
+  /* ── Support chat ── */
+  .support-chat-overlay {
+    padding: 0;
+    align-items: flex-end;
+  }
+
+  .support-chat-card {
+    max-width: 100%;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    height: 92svh;
+    max-height: 92svh;
+  }
+
+  /* ── Partner cards ── */
+  .partner-card__img-wrap {
+    height: 150px;
+  }
+
+  /* ── Careers / Blog modal lists ── */
+  .career-item__head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .blog-item {
+    padding-bottom: var(--space-3);
+  }
+}
+
+/* ==============================================================
+   SMALL PHONE — ≤390px  (iPhone SE, Galaxy A-series, etc.)
+   ============================================================== */
+@media (max-width: 390px) {
+
+  .hero-headline {
+    font-size: clamp(28px, 8.5vw, 38px);
+  }
+
+  .section-heading {
+    font-size: clamp(24px, 7vw, 32px);
+  }
+
+  .stat-chip {
+    flex: 1 1 100%;
+  }
+
+  .impact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-links {
+    grid-template-columns: 1fr;
+  }
+
+  .social-btn {
+    font-size: 12px;
+    gap: 8px;
+  }
+}
+
+/* ==============================================================
+   TABLET PORTRAIT — 481px–768px  (iPad mini, standard tablets)
+   Two-column grids. Comfortable spacing. Larger touch targets.
+   ============================================================== */
+@media (min-width: 481px) and (max-width: 768px) {
+
+  :root {
+    --nav-height: 80px;
+  }
+
+  /* Typography — slightly larger than phone */
+  .hero-headline {
+    font-size: clamp(40px, 7vw, 60px);
+  }
+
+  .section-heading {
+    font-size: clamp(30px, 5vw, 44px);
+  }
+
+  .section-sub {
+    font-size: 17px;
+  }
+
+  /* Hero */
+  .hero-content {
+    padding: var(--space-6) var(--space-3) var(--space-7);
+    max-width: 100%;
+  }
+
+  .hero-ctas {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .hero-stats {
+    gap: var(--space-2);
+  }
+
+  /* Grids — 2 columns on tablet */
+  .problem-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .solution-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .hiw-timeline {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .impact-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .citations-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Footer */
+  .footer-top {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-links {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* Modals */
+  .modal-overlay {
+    align-items: center;
+    padding: var(--space-3);
+  }
+
+  .modal-card {
+    border-radius: var(--radius-lg);
+    max-height: 88svh;
+  }
+}
+
+/* ==============================================================
+   TABLET LANDSCAPE — 769px–1024px  (iPad Pro landscape, etc.)
+   Three-column grids. Desktop-style nav.
+   ============================================================== */
+@media (min-width: 769px) and (max-width: 1024px) {
+
+  .problem-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .solution-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .hiw-timeline {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .impact-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .testimonials-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .citations-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .footer-top {
+    grid-template-columns: 1fr 1.5fr;
+  }
+
+  .footer-links {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ==============================================================
+   TOUCH DEVICES — disable desktop-only hover states
+   ============================================================== */
+@media (hover: none) and (pointer: coarse) {
+
+  /* Feature flip card — tap works, hover state removed */
+  .feature-card:hover .feature-card__inner {
+    transform: none;
+  }
+
+  /* Partner image overlay — always slightly visible on touch */
+  .partner-card__img-overlay {
+    opacity: 0.9;
+    transform: translateY(0);
+  }
+
+  .partner-card__overlay-btn {
+    transform: translateY(0);
+  }
+
+  /* Remove hover lifts that cause layout jank on touch */
+  .problem-card:hover,
+  .solution-card:hover,
+  .feature-card:hover,
+  .testimonial-card:hover {
+    transform: none;
+  }
+}
